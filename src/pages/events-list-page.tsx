@@ -11,9 +11,11 @@ export const Component = () => {
 			<Title size={"h3"} c={"dimmed"}>
 				Camera events
 			</Title>
+			
 			{data?.map((event) => (
 				<EventListCard key={event.id} {...event} />
 			))}
+				
 		</Flex>
 	);
 };

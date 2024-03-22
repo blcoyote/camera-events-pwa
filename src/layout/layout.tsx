@@ -8,6 +8,7 @@ import {
 	Menu,
 	Group,
 	Skeleton,
+	ScrollArea,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useAuthProvider } from "../hooks/use-auth-provider";
@@ -37,6 +38,7 @@ export const Layout = () => {
 			header={{ height: 60 }}
 			navbar={{ width: 200, breakpoint: "sm", collapsed: { mobile: !opened } }}
 			padding="md"
+
 		>
 			<AppShell.Header>
 				<Flex
@@ -71,7 +73,9 @@ export const Layout = () => {
 			<AppShell.Main>
 				<Container>
 					<UserGuard>
-						<Outlet />
+						<ScrollArea offsetScrollbars type="scroll" h={'90vh'} style={{overflow: 'auto'}}>
+							<Outlet />
+						</ScrollArea>
 					</UserGuard>
 				</Container>
 			</AppShell.Main>

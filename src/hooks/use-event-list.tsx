@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { baseUrl } from "../config/service";
-import { useAuthProvider } from "./use-auth-provider";
 import type { CameraEvent } from "../models/camera-event.model";
 import useSettings from "./use-settings";
+import { useApi } from "./use-api.tsx";
+
 
 export const useEventList = () => {
-	const { token } = useAuthProvider();
+	const {api, hasToken} = useApi();
 	const { eventLimit } = useSettings();
 
 	const params = { limit: eventLimit };
+
+
 
 	const {
 		isPending,
@@ -21,19 +22,10 @@ export const useEventList = () => {
 		isSuccess,
 	} = useQuery({
 		queryKey: ["eventList"],
-		enabled: !!token,
+		enabled: hasToken,
+
 		queryFn: () =>
-			axios
-				.get(`${ import.meta.env.MODE === 'development' ? '' : baseUrl}/v2/events`, {
-					headers: {
-						"X-token": token,
-						"Content-Type": "application/json;charset=UTF-8",
-						"Access-Control-Allow-Origin": "*",
-						"Access-Control-Allow-Methods":
-							"DELETE, POST, GET, OPTIONS, REDIRECT",
-						"Access-Control-Allow-Headers":
-							"Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
-					},
+			api.get(`/v2/events/`, {
 					params: params,
 				})
 				.then((res) => res.data as CameraEvent[]),
