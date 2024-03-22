@@ -5,7 +5,7 @@ export const useApi = () => {
   const { token } = useAuthProvider();
   const hasToken = token !== null;
   const api = axios.create({
-    baseURL: '/v2',
+    baseURL: '/api',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       'Access-Control-Allow-Origin': '*',

@@ -1,0 +1,21 @@
+server {
+    
+    listen 80;
+    server_name _;
+
+    location / {
+        root   /usr/share/nginx/html/www;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api {
+        return  301 https://$ENV{BACKEND_URL}$request_uri; 
+    }
+        
+    
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html/www;
+    }
+}

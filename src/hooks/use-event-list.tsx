@@ -25,7 +25,7 @@ export const useEventList = () => {
 		enabled: hasToken,
 
 		queryFn: () =>
-			api.get(`/events`, {
+			api.get(`/v2/events/`, {
 					params: params,
 				})
 				.then((res) => res.data as CameraEvent[]),

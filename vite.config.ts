@@ -9,7 +9,7 @@ export default ({ mode }: { mode: string }) => {
     server: {
       port: 3000,
       proxy: {
-        '/v2': {
+        '/api': {
           protocolRewrite: 'https',
           target: process.env.VITE_BaseURL,
           changeOrigin: true,
