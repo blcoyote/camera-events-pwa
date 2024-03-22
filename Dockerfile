@@ -11,7 +11,7 @@ RUN npm run build
 
 FROM nginx:stable-alpine 
 COPY --from=build /usr/src/dist /usr/share/nginx/html/www
-COPY nginx/default.conf.template /etc/nginx/templates
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 RUN chmod -R +rx /usr/share/nginx/html/www
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

@@ -7,4 +7,4 @@ services:
         # env_file:
         #     - .env
         environment:
-            - BACKEND_URL=$BACKEND_URL
+            - WORKSERS=1
