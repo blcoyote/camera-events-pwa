@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "npx @biomejs/biome format --write ./src",
-    "lint": "biome lint ./src"
+    "lint": "biome lint ./src",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
   },
   "dependencies": {
     "@mantine/charts": "^7.6.2",
@@ -33,11 +34,13 @@
     "@types/react-dom": "^18.2.21",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/parser": "^7.1.1",
+    "@vite-pwa/assets-generator": "^0.2.4",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "postcss": "^8.4.35",
     "postcss-preset-mantine": "^1.13.0",
     "postcss-simple-vars": "^7.0.1",
     "typescript": "^5.2.2",
-    "vite": "^5.1.6"
+    "vite": "^5.1.6",
+    "vite-plugin-pwa": "^0.19.6"
   }
 }
