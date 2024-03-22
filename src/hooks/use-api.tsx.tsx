@@ -8,6 +8,8 @@ export const useApi = () => {
     baseURL: '/v2',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
       'X-token': token,
     },
   });
