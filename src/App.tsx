@@ -13,6 +13,7 @@ export default function App() {
 	const store = createStore();
 	const colorScheme = useColorScheme();
 
+
 	return (
 		<JotaiProvider store={store}>
 			<MantineProvider
@@ -20,9 +21,11 @@ export default function App() {
 				theme={colorScheme === "dark" ? darkTheme : lightTheme}
 			>
 				<QueryClientProvider client={queryClient}>
-					<RouterProvider router={router} />
+					<RouterProvider router={router}   future={{ v7_startTransition: true }}/>
 				</QueryClientProvider>
 			</MantineProvider>
 		</JotaiProvider>
 	);
 }
+
+

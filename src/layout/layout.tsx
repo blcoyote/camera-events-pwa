@@ -17,7 +17,7 @@ import { NavBar } from "../components/navbar/navbar";
 import { Link, Outlet } from "react-router-dom";
 import { UserGuard } from "../guards/user-guard";
 
-export function Layout() {
+export const Layout = () => {
 	const { user, loading, signInWithGoogle, handleLogout } = useAuthProvider();
 	const [opened, { toggle }] = useDisclosure();
 
