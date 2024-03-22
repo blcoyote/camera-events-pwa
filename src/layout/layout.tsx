@@ -9,11 +9,11 @@ import {
 	Group,
 	Skeleton,
 	ScrollArea,
+	Image,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useAuthProvider } from "../hooks/use-auth-provider";
 import { AvatarMenuDropdown } from "../components/avatar-menu-dropdown";
-import { IconHome2 } from "@tabler/icons-react";
 import { NavBar } from "../components/navbar/navbar";
 import { Link, Outlet } from "react-router-dom";
 import { UserGuard } from "../guards/user-guard";
@@ -38,7 +38,6 @@ export const Layout = () => {
 			header={{ height: 60 }}
 			navbar={{ width: 200, breakpoint: "sm", collapsed: { mobile: !opened } }}
 			padding="md"
-
 		>
 			<AppShell.Header>
 				<Flex
@@ -51,7 +50,7 @@ export const Layout = () => {
 				>
 					<Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
 					<Link to="/">
-						<IconHome2 />
+						<Image radius="md" src="/pwa-64x64.png" h={50} w={50} />
 					</Link>
 
 					<Group style={{ marginLeft: "auto" }}>
@@ -73,7 +72,12 @@ export const Layout = () => {
 			<AppShell.Main>
 				<Container>
 					<UserGuard>
-						<ScrollArea offsetScrollbars type="never" h={'90vh'} style={{overflow: 'auto'}}>
+						<ScrollArea
+							offsetScrollbars
+							type="never"
+							h={"90vh"}
+							style={{ overflow: "auto" }}
+						>
 							<Outlet />
 						</ScrollArea>
 					</UserGuard>
@@ -81,4 +85,4 @@ export const Layout = () => {
 			</AppShell.Main>
 		</AppShell>
 	);
-}
+};
