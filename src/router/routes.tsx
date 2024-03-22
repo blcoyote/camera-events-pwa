@@ -4,11 +4,10 @@ import { Layout } from "../layout/layout";
 
 export const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <Layout />,
+		element: <Layout/>,
 		loader: PageLoader,
 		children: [
-			{ path: "", lazy: () => import("../pages/events-list-page") },
+			{ path: "/", lazy: () => import("../pages/events-list-page") },
 			{
 				path: "events",
 				lazy: () => import("../pages/events-list-page"),

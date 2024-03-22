@@ -24,7 +24,7 @@ export const useEventList = () => {
 		enabled: !!token,
 		queryFn: () =>
 			axios
-				.get(`${ import.meta.env.MODE === 'development' ? '' : import.meta.env.VITE_BaseURL}/v2/events`, {
+				.get(`${ import.meta.env.MODE === 'development' ? '' : baseUrl}/v2/events`, {
 					headers: {
 						"X-token": token,
 						"Content-Type": "application/json;charset=UTF-8",
