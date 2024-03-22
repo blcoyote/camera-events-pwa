@@ -73,7 +73,7 @@ export const Layout = () => {
 			<AppShell.Main>
 				<Container>
 					<UserGuard>
-						<ScrollArea offsetScrollbars type="scroll" h={'90vh'} style={{overflow: 'auto'}}>
+						<ScrollArea offsetScrollbars type="never" h={'90vh'} style={{overflow: 'auto'}}>
 							<Outlet />
 						</ScrollArea>
 					</UserGuard>

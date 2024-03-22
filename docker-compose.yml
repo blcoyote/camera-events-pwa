@@ -6,3 +6,8 @@ services:
         image: camera-events-pwa:latest
         environment:
             - BACKEND_URL=$BACKEND_URL
+        labels:
+            - traefik.http.routers.cameraeventspwa.rule=Host(`$FRONTEND_URL`)
+            - traefik.http.routers.cameraeventspwa.tls=true
+            - traefik.http.routers.cameraeventspwa.tls.certresolver=lets-encrypt
+            - traefik.http.services.cameraeventspwa.loadbalancer.server.port=80
