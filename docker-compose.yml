@@ -4,7 +4,5 @@ services:
         network_mode: web
         container_name: camera-events-pwa
         image: camera-events-pwa:latest
-        # env_file:
-        #     - .env
         environment:
-            - WORKSERS=1
+            - BACKEND_URL=$BACKEND_URL
