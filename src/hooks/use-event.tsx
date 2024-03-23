@@ -2,6 +2,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import type { CameraEvent } from "../models/camera-event.model";
 import { useApi } from "./use-api.tsx";
 import fileDownload from "js-file-download";
+import { useAuthProvider } from "./use-auth-provider.tsx";
+
 
 export const useEventDetails = (id?: string, skip?: boolean) => {
 	const { api, hasToken } = useApi();
@@ -62,10 +64,13 @@ export const useEventSnapshot = (
 
 export const useEventClipDownload = (id?: string) => {
 	const { api } = useApi();
+	const { token } = useAuthProvider();
 	const { isPending, error, isSuccess, mutate } = useMutation({
 		mutationFn: () =>
 			api
-				.get(`/v2/events/${id}/clip.mp4`, { responseType: "arraybuffer" })
+				.get(`/v2/downloads/${id}/clip.mp4?token=${token}`, {
+					responseType: "arraybuffer",
+				})
 				.then((res) => {
 					fileDownload(res.data, `${id}.mp4`);
 				}),
@@ -76,10 +81,13 @@ export const useEventClipDownload = (id?: string) => {
 
 export const useEventSnapshotDownload = (id?: string) => {
 	const { api } = useApi();
+	const { token } = useAuthProvider();
 	const { isPending, error, isSuccess, mutate } = useMutation({
 		mutationFn: () =>
 			api
-				.get(`/v2/events/${id}/snapshot.jpg`, { responseType: "arraybuffer" })
+				.get(`/v2/downloads/${id}/snapshot.jpg?token=${token}`, {
+					responseType: "arraybuffer",
+				})
 				.then((res) => {
 					fileDownload(res.data, `${id}.jpg`);
 				}),
