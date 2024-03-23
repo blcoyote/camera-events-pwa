@@ -6,17 +6,14 @@ import {
 	Title,
 	Text,
 	Divider,
-	Loader,
 	useMantineTheme,
 } from "@mantine/core";
 import type { CameraEvent } from "../../models/camera-event.model";
 import { IconMovie, IconPhoto } from "@tabler/icons-react";
-import {
-	useEventClipDownload,
-	useEventSnapshotDownload,
-} from "../../hooks/use-event";
+
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
+import { useAuthProvider } from "../../hooks/use-auth-provider";
 
 interface EventContainerProps {
 	event?: CameraEvent;
@@ -32,22 +29,13 @@ export const EventContainer = (props: EventContainerProps) => {
 	const { event, isLoading, isError, isSnapshotLoading, snapshotData } = props;
 	const image = snapshotData && `data:image/jpeg;base64,${snapshotData}`;
 	const fallbackImage = "https://placehold.co/600x400?text=error";
-	const { download: downloadVideoFile, loading: loadingVideoDownload } =
-		useEventClipDownload(event?.id);
-	const { download: downloadSnapshotFile, loading: loadingSnapshotDownload } =
-		useEventSnapshotDownload(event?.id);
+	const { token } = useAuthProvider();
+
 	const theme = useMantineTheme();
 
 	if (isError) {
 		return <div>Error...</div>;
 	}
-
-        const snapshotDownload = () => {
-		downloadSnapshotFile();
-	};
-	const videoDownload = () => {
-		downloadVideoFile();
-	};
 
 	return (
 		<motion.div
@@ -113,32 +101,23 @@ export const EventContainer = (props: EventContainerProps) => {
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.5 }}
 						>
-							{loadingSnapshotDownload && (
-								<Loader size={40} color={theme.colors.blue[4]} />
-							)}
-							{!loadingSnapshotDownload && (
-								<IconPhoto
-									size={40}
-									onClick={snapshotDownload}
-									color={theme.colors.blue[4]}
-								/>
-							)}
+							<a
+								href={`/api/v2/downloads/${event?.id}/snapshot.jpg?token=${token}`}
+							>
+								<IconPhoto size={40} color={theme.colors.blue[4]} />
+							</a>
 						</motion.div>
+
 						<motion.div
 							initial={{ opacity: 0, scale: 0.5 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.5 }}
 						>
-							{loadingVideoDownload && (
-								<Loader size={40} color={theme.colors.blue[4]} />
-							)}
-							{!loadingVideoDownload && (
-								<IconMovie
-									size={40}
-									onClick={videoDownload}
-									color={theme.colors.blue[4]}
-								/>
-							)}
+							<a
+								href={`/api/v2/downloads/${event?.id}/clip.mp4?token=${token}`}
+							>
+								<IconMovie size={40} color={theme.colors.blue[4]} />
+							</a>
 						</motion.div>
 					</Flex>
 				</Flex>
