@@ -22,9 +22,15 @@ export default ({ mode }: { mode: string }) => {
     plugins: [
       react(),
       VitePWA({
-        registerType: 'autoUpdate',
         injectRegister: 'auto',
+        registerType: 'autoUpdate',
+        // minimum PWA
+        includeAssets: ['favicon.ico', 'robots.txt', '*.svg', '*.{png,ico}', '*.{json}', '*.js'],
+        workbox: {
+          sourcemap: true,
+        },
       }),
+
       splitVendorChunkPlugin(),
     ],
     build: {
