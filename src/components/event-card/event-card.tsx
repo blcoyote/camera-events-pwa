@@ -25,18 +25,11 @@ interface EventContainerProps {
 	isSuccess: boolean;
 	snapshotData?: string;
 	isSnapshotLoading: boolean;
-	refetch: () => void;
+	refetch?: () => void;
 }
 
 export const EventContainer = (props: EventContainerProps) => {
-	const {
-		event,
-		isLoading,
-		isError,
-		isSnapshotLoading,
-		snapshotData,
-		refetch,
-	} = props;
+	const { event, isLoading, isError, isSnapshotLoading, snapshotData } = props;
 	const image = snapshotData && `data:image/jpeg;base64,${snapshotData}`;
 	const fallbackImage = "https://placehold.co/600x400?text=error";
 	const { download: downloadVideoFile, loading: loadingVideoDownload } =
@@ -62,28 +55,23 @@ export const EventContainer = (props: EventContainerProps) => {
 			animate={{ opacity: 1, scale: 1 }}
 			transition={{ duration: 0.5 }}
 		>
-			<Card shadow="sm" padding="lg" radius="md" withBorder>
+			<Card shadow="sm" padding="dm" radius="md" withBorder>
 				<Card.Section>
 					<Skeleton visible={isSnapshotLoading} mb={"1rem"}>
 						<Image src={image} fallbackSrc={fallbackImage} />
 					</Skeleton>
 				</Card.Section>
 				<Skeleton visible={isLoading}>
-					<Title size={"md"} hiddenFrom="sm">{`Event: ${event?.id}`}</Title>
-					<Title visibleFrom="sm">{`Event: ${event?.id}`}</Title>
+					<Title
+						size={"md"}
+						hiddenFrom="sm"
+						ml={"1rem"}
+					>{`Event: ${event?.id}`}</Title>
+					<Title visibleFrom="sm" ml={"1rem"}>{`Event: ${event?.id}`}</Title>
 				</Skeleton>
-				<Flex
-					gap={"1rem"}
-					direction={"column"}
-					m={"1rem"}
-					pt={"1rem"}
-					style={{
-						borderWidth: "1px",
-						borderStyle: "solid",
-						borderColor: "#e0e0e0",
-						borderRadius: "0.5rem",
-					}}
-				>
+
+				<Flex gap={"1rem"} direction={"column"} pt={"1rem"}>
+					<Divider w={"100%"} label={"Details"} labelPosition="center" />
 					<Flex gap={"1rem"} direction={"row"} mx={"1rem"}>
 						<Text style={{ fontWeight: "bold" }}>Timestamp: </Text>
 						<Skeleton visible={isLoading}>
