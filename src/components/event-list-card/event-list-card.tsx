@@ -67,13 +67,13 @@ export const EventListCard = (props: CameraEvent) => {
 								</Group>
 
 								<Text size="sm" c="dimmed">
-									{`label: ${props.label}`}
+									{`Label: ${props.label}`}
 								</Text>
 								<Text size="sm" c="dimmed">
-									{`Sansynlighed: ${(props.data.top_score * 100).toFixed(2)}%`}
+									{`Probability: ${(props.data.top_score * 100).toFixed(2)}%`}
 								</Text>
 								<Text size="sm" c="dimmed">
-									{`eventId: ${props.id}`}
+									{`EventId: ${props.id}`}
 								</Text>
 							</Flex>
 						</Flex>
