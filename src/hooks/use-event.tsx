@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type { CameraEvent } from "../models/camera-event.model";
 import { useApi } from "./use-api.tsx";
+import fileDownload from "js-file-download";
 
 export const useEventDetails = (id?: string, skip?: boolean) => {
 	const { api, hasToken } = useApi();
@@ -57,4 +58,32 @@ export const useEventSnapshot = (
 
 	const loading = isFetching || isLoading || isPending || isRefetching;
 	return { loading, error, data, isSuccess };
+};
+
+export const useEventClipDownload = (id?: string) => {
+	const { api } = useApi();
+	const { isPending, error, isSuccess, mutate } = useMutation({
+		mutationFn: () =>
+			api
+				.get(`/v2/events/${id}/clip.mp4`, { responseType: "arraybuffer" })
+				.then((res) => {
+					fileDownload(res.data, `${id}.mp4`);
+				}),
+	});
+
+	return { loading: isPending, error, isSuccess, download: mutate };
+};
+
+export const useEventSnapshotDownload = (id?: string) => {
+	const { api } = useApi();
+	const { isPending, error, isSuccess, mutate } = useMutation({
+		mutationFn: () =>
+			api
+				.get(`/v2/events/${id}/snapshot.jpg`, { responseType: "arraybuffer" })
+				.then((res) => {
+					fileDownload(res.data, `${id}.jpg`);
+				}),
+	});
+
+	return { loading: isPending, error, isSuccess, download: mutate };
 };

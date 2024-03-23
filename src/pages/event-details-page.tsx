@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import { IconArrowBackUp } from "@tabler/icons-react";
 import { useEventDetails, useEventSnapshot } from "../hooks/use-event";
-import { Flex, Image } from "@mantine/core";
 import { EventContainer } from "../components/event-card/event-card";
 
 export const Component = () => {
@@ -21,9 +20,6 @@ export const Component = () => {
 		error: snapshotError,
 		data: snapshotData,
 	} = useEventSnapshot(id);
-
-	const image = snapshotData && `data:image/jpeg;base64,${snapshotData}`;
-	const fallbackImage = "https://placehold.co/600x400?text=error";
 
 	return (
 		<div>
