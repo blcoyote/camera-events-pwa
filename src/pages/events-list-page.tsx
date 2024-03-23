@@ -7,15 +7,19 @@ export const Component = () => {
 	const { data } = useEventList();
 
 	return (
-		<Flex justify="space-between" gap={"1rem"} direction={"column"}>
+		<Flex
+			justify="space-between"
+			gap={"1rem"}
+			direction={"column"}
+			style={{ zIndex: 1, paddingLeft: "1rem", paddingRight: "1rem" }}
+		>
 			<Title size={"h3"} c={"dimmed"}>
 				Camera events
 			</Title>
-			
+
 			{data?.map((event) => (
 				<EventListCard key={event.id} {...event} />
 			))}
-				
 		</Flex>
 	);
 };

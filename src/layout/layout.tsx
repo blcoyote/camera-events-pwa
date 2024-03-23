@@ -37,7 +37,7 @@ export const Layout = () => {
 		<AppShell
 			header={{ height: 60 }}
 			navbar={{ width: 200, breakpoint: "sm", collapsed: { mobile: !opened } }}
-			padding="md"
+			zIndex={1}
 		>
 			<AppShell.Header>
 				<Flex
@@ -68,15 +68,19 @@ export const Layout = () => {
 					</Group>
 				</Flex>
 			</AppShell.Header>
-			{!loading && <NavBar onClick={toggle} />}
+			{!loading && <NavBar onClick={toggle} opened={opened} />}
 			<AppShell.Main>
-				<Container>
+				<Container style={{ paddingRight: 0 }}>
 					<UserGuard>
 						<ScrollArea
 							offsetScrollbars
-							type="never"
+							type="scroll"
 							h={"90vh"}
-							style={{ overflow: "auto" }}
+							w={"100%"}
+							style={{
+								overflow: "auto",
+								paddingTop: "1rem",
+							}}
 						>
 							<Outlet />
 						</ScrollArea>

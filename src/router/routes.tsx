@@ -4,13 +4,17 @@ import { Layout } from "../layout/layout";
 
 export const router = createBrowserRouter([
 	{
-		element: <Layout/>,
+		element: <Layout />,
 		loader: PageLoader,
 		children: [
 			{ path: "/", lazy: () => import("../pages/events-list-page") },
 			{
 				path: "events",
 				lazy: () => import("../pages/events-list-page"),
+			},
+			{
+				path: "event/:id",
+				lazy: () => import("../pages/event-details-page"),
 			},
 
 			{ path: "about", lazy: () => import("../pages/about-page") },
