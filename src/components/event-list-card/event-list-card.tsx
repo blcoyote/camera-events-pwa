@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 export const EventListCard = (props: CameraEvent) => {
 	const navigate = useNavigate();
-    const timestamp = dayjs.unix(props.start_time);
+	const timestamp = dayjs.unix(props.start_time);
 	const image = `data:image/jpeg;base64,${props.thumbnail}`;
-    const fallbackImage = "https://placehold.co/600x400?text=error";
+	const fallbackImage = "https://placehold.co/600x400?text=error";
 	const [scale, setScale] = useState(1);
 
 	const navigateToEvent = () => {

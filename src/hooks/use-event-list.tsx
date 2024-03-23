@@ -3,14 +3,11 @@ import type { CameraEvent } from "../models/camera-event.model";
 import useSettings from "./use-settings";
 import { useApi } from "./use-api.tsx";
 
-
 export const useEventList = () => {
-	const {api, hasToken} = useApi();
+	const { api, hasToken } = useApi();
 	const { eventLimit } = useSettings();
 
 	const params = { limit: eventLimit };
-
-
 
 	const {
 		isPending,

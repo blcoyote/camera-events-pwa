@@ -4,7 +4,6 @@ import { useApi } from "./use-api.tsx";
 import fileDownload from "js-file-download";
 import { useAuthProvider } from "./use-auth-provider.tsx";
 
-
 export const useEventDetails = (id?: string, skip?: boolean) => {
 	const { api, hasToken } = useApi();
 	const {
