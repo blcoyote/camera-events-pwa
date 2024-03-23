@@ -15,11 +15,7 @@ export const Component = () => {
 		navigate("/events/");
 	};
 	const { loading, error, data, isSuccess } = useEventDetails(id);
-	const {
-		loading: snapshotLoading,
-		error: snapshotError,
-		data: snapshotData,
-	} = useEventSnapshot(id);
+	const { loading: snapshotLoading, data: snapshotData } = useEventSnapshot(id);
 
 	return (
 		<div>
