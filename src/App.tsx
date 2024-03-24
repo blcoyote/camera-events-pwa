@@ -16,7 +16,7 @@ export default function App() {
 	const queryClient = new QueryClient();
 	const store = createStore();
 	const colorScheme = useColorScheme();
-		const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
+	const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
 	const [show, setShow] = useState(false);
 	const [notification, setNotification] = useState({ title: "", body: "" });
 
