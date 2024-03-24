@@ -9,8 +9,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useClickOutside } from "@mantine/hooks";
 
-
-
 export function NavBar(props: {
 	onClick: () => void;
 	opened: boolean;
@@ -21,7 +19,7 @@ export function NavBar(props: {
 	const ref = useClickOutside(() => {
 		setTimeout(() => {
 			opened && onClick();
-		}, 10);
+		}, 50);
 	}, ["mouseup", "touchend"]);
 
 	return (

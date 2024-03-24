@@ -1,5 +1,5 @@
 import type { Settings } from "../models/settings.model";
-import { atomWithLocalStorage } from './atom-handler';
+import { atomWithLocalStorage } from "./atom-handler";
 
 const initialData: Settings = {
 	eventLimit: 20,

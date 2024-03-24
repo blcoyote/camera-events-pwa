@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CameraNames } from "../../config/enum-camera-names";
 
 export const EventListCard = (props: CameraEvent) => {
 	const navigate = useNavigate();
@@ -64,7 +65,8 @@ export const EventListCard = (props: CameraEvent) => {
 										{timestamp.format("DD/MM HH:mm")}
 									</Text>
 									<Badge color="teal" variant="filled" ml="auto">
-										{props.camera}
+										{CameraNames[props.camera as keyof typeof CameraNames] ??
+											"Unknown"}
 									</Badge>
 								</Group>
 
