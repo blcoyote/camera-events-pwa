@@ -7,36 +7,30 @@ import { router } from "./router/routes";
 import { lightTheme, darkTheme } from "./styles/theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useColorScheme } from "@mantine/hooks";
-
 import { FirebaseNotificationProvider } from "./FirebaseNotificationProvider";
 import { useEffect, useState } from "react";
 import { getMessageToken, onMessageListener } from "./config/firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
 	const queryClient = new QueryClient();
 	const store = createStore();
 	const colorScheme = useColorScheme();
 	const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
-	const [show, setShow] = useState(false);
-	const [notification, setNotification] = useState({ title: "", body: "" });
 
 	useEffect(() => {
 		getMessageToken(setTokenFound);
 	}, []);
 
-	console.log(show, notification);
-	onMessageListener()
-		.then((payload) => {
-			if (payload.notification?.title && payload.notification?.body) {
-				setShow(true);
-				setNotification({
-					title: payload.notification?.title,
-					body: payload.notification?.body,
-				});
-				console.log(payload);
-			}
-		})
-		.catch((err) => console.log("failed: ", err));
+	onMessageListener().then((payload) => {
+		if (payload.notification?.title && payload.notification?.body) {
+			toast.info(
+				`${payload.notification.title}: ${payload.notification.body}`,
+				{ toastId: payload.messageId },
+			);
+		}
+	});
 
 	return (
 		<JotaiProvider store={store}>
@@ -50,6 +44,7 @@ export default function App() {
 							router={router}
 							future={{ v7_startTransition: true }}
 						/>
+						<ToastContainer />
 					</FirebaseNotificationProvider>
 				</QueryClientProvider>
 			</MantineProvider>

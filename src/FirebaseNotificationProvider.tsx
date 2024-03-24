@@ -12,7 +12,7 @@ export const FirebaseNotificationProvider = (props: {
 
 	const { mutate } = useMutation({
 		mutationFn: () =>
-			api.post(`/v2/fcm?fcm_token=${props.fcmToken}&token=${token}`),
+			api.get(`/v2/fcm?fcm_token=${props.fcmToken}&token=${token}`),
 	});
 
 	useEffect(() => {
