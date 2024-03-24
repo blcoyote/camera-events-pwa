@@ -22,8 +22,10 @@ export const EventListCard = (props: CameraEvent) => {
 			transition={{ duration: 0.5 }}
 		>
 			<motion.div
-				onHoverStart={() => setScale(1.02)}
+				onHoverStart={() => setScale(1.04)}
 				onHoverEnd={() => setScale(1)}
+				onTouchStart={() => setScale(1.04)}
+				onTouchEnd={() => setScale(1)}
 				animate={{ scale: scale }}
 			>
 				<Card

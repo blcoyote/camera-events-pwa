@@ -11,12 +11,12 @@ import {
 	ScrollArea,
 	Image,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { useAuthProvider } from "../hooks/use-auth-provider";
 import { AvatarMenuDropdown } from "../components/avatar-menu-dropdown";
 import { NavBar } from "../components/navbar/navbar";
 import { Link, Outlet } from "react-router-dom";
 import { UserGuard } from "../guards/user-guard";
+import { useDisclosure } from "@mantine/hooks";
 
 export const Layout = () => {
 	const { user, loading, signInWithGoogle, handleLogout } = useAuthProvider();
@@ -32,12 +32,14 @@ export const Layout = () => {
 			</Menu>
 		);
 	};
+	const handleBurgerClick = () => {
+		if (!opened) toggle();
+	};
 
 	return (
 		<AppShell
 			header={{ height: 60 }}
 			navbar={{ width: 200, breakpoint: "sm", collapsed: { mobile: !opened } }}
-			zIndex={1}
 		>
 			<AppShell.Header>
 				<Flex
@@ -48,7 +50,12 @@ export const Layout = () => {
 					justify="flex-start"
 					align="center"
 				>
-					<Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+					<Burger
+						opened={opened}
+						onClick={handleBurgerClick}
+						size="sm"
+						hiddenFrom="sm"
+					/>
 					<Link to="/">
 						<Image radius="md" src="/pwa-64x64.png" h={50} w={50} />
 					</Link>

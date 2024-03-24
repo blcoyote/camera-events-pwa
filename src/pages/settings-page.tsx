@@ -1,4 +1,4 @@
-import { Box, Paper, Slider } from "@mantine/core";
+import { Box, Paper, Slider, Text } from "@mantine/core";
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 
 import { useState } from "react";
@@ -12,6 +12,7 @@ export const Component = () => {
 	return (
 		<Paper shadow="xs" p="xl">
 			<Box maw={400} mx="auto">
+				<Text>Maximum displayed events:</Text>
 				<Slider
 					min={minValue}
 					max={maxValue}
