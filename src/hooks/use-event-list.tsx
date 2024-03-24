@@ -20,7 +20,6 @@ export const useEventList = () => {
 	} = useQuery({
 		queryKey: ["eventList"],
 		enabled: hasToken,
-
 		queryFn: () =>
 			api
 				.get("/v2/events/", {
