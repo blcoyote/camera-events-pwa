@@ -21,7 +21,7 @@ export function NavBar(props: {
 	const ref = useClickOutside(() => {
 		setTimeout(() => {
 			opened && onClick();
-		}, 10);
+		}, 50);
 	}, ["mouseup", "touchend"]);
 
 	return (
