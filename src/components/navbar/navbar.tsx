@@ -9,13 +9,20 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useClickOutside } from "@mantine/hooks";
 
-export function NavBar(props: { onClick: () => void; opened: boolean }) {
+
+
+export function NavBar(props: {
+	onClick: () => void;
+	opened: boolean;
+}) {
 	const { autenticated, signInWithGoogle, handleLogout } = useAuthProvider();
 	const { onClick, opened } = props;
 	const navigate = useNavigate();
 	const ref = useClickOutside(() => {
-		opened && onClick();
-	});
+		setTimeout(() => {
+			opened && onClick();
+		}, 10);
+	}, ["mouseup", "touchend"]);
 
 	return (
 		<AppShell.Navbar p="md" w={"12rem"}>
