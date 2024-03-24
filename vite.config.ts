@@ -68,6 +68,7 @@ export default ({ mode }: { mode: string }) => {
           sourcemap: true,
         },
       }),
+
       splitVendorChunkPlugin(),
     ],
     build: {
