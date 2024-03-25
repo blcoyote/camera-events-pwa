@@ -7,6 +7,7 @@ import {
 import { IconArrowBackUp } from "@tabler/icons-react";
 import { useEventDetails, useEventSnapshot } from "../hooks/use-event";
 import { EventContainer } from "../components/event-card/event-card";
+import { motion } from "framer-motion";
 
 export const Component = () => {
 	const { id } = useParams();
@@ -18,7 +19,11 @@ export const Component = () => {
 	const { loading: snapshotLoading, data: snapshotData } = useEventSnapshot(id);
 
 	return (
-		<div>
+		<motion.div
+			initial={{ opacity: 0, scale: 0.5 }}
+			animate={{ opacity: 1, scale: 1 }}
+			transition={{ duration: 0.5 }}
+		>
 			<IconArrowBackUp onClick={navigateToEventsPage} color="#797979" />
 			<EventContainer
 				event={data}
@@ -29,7 +34,7 @@ export const Component = () => {
 				snapshotData={snapshotData}
 				refetch={() => {}}
 			/>
-		</div>
+		</motion.div>
 	);
 };
 
