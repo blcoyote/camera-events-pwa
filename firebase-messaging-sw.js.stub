@@ -23,18 +23,18 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-	const notificationTitle = payload.notification.title;
+	const notificationTitle = "manual title"; //payload.notification.title;
+
+	const notificationUrl = `INSERT_WEBURL_HERE${payload.data.path}/${payload.data.id}`;
 	const notificationOptions = {
 		body: payload.notification.body,
 		actions: [{ action: "open_page", title: "Open" }],
-		data: { url: payload.data.path },
+		data: { url: notificationUrl },
 	};
-	self.registration.showNotification(notificationTitle, notificationOptions);
-
 	self.addEventListener("notificationclick", (event) => {
 		const data = event.notification.data;
 		event.notification.close();
-		self.clients.openWindow(data.url);
+		self.clients.openWindow(notificationUrl);
 	});
+	self.registration.showNotification(notificationTitle, notificationOptions);
 });
-

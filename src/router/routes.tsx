@@ -7,6 +7,7 @@ export const router = createBrowserRouter([
 		element: <Layout />,
 		loader: PageLoader,
 		children: [
+			{ path: "*", lazy: () => import("../pages/not-found-page") },
 			{ path: "/", lazy: () => import("../pages/events-list-page") },
 			{
 				path: "events",

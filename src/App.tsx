@@ -24,13 +24,22 @@ export default function App() {
 	}, []);
 
 	onMessageListener().then((payload) => {
-		if (payload.notification?.title && payload.notification?.body) {
-			toast.info(
-				`${payload.notification.title}: ${payload.notification.body}`,
-				{ toastId: payload.messageId },
+		console.log("payload", payload);
+		function ToastDisplay() {
+			return (
+				<div>
+					<p>
+						<b>{payload.notification?.title}</b>
+					</p>
+					<p>{payload.notification?.body}</p>
+				</div>
 			);
 		}
+		if (payload.notification?.title && payload.notification?.body) {
+			toast.info(<ToastDisplay />);
+		}
 	});
+
 
 	return (
 		<JotaiProvider store={store}>
