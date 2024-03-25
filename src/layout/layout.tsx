@@ -86,7 +86,6 @@ export const Layout = () => {
 							w={"100%"}
 							style={{
 								overflow: "auto",
-								paddingTop: "1rem",
 							}}
 						>
 							<Outlet />

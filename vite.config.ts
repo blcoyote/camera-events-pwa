@@ -22,51 +22,49 @@ export default ({ mode }: { mode: string }) => {
       },
     },
     plugins: [
-      viteStaticCopy({
-        targets: [
-          {
-            src: normalizePath(`${path.resolve(__dirname, '.')}/firebase-messaging-sw.js.stub`),
-            dest: normalizePath(`${path.resolve(__dirname, './public')}`),
-            rename: 'firebase-messaging-sw.js',
-            overwrite: true,
-            transform: (contents) =>
-              contents
-                .toString()
-                .replace(/INSERT_API_KEY_HERE/g, process.env.VITE_apiKey as string)
-                .replace(/INSERT_MESSAGING_SENDER_ID_HERE/g, process.env.VITE_messageSenderId as string)
-                .replace(/INSERT_AUTH_DOMAIN_HERE/g, process.env.VITE_authDomain as string)
-                .replace(/INSERT_APP_ID_HERE/g, process.env.VITE_appId as string)
-                .replace(/INSERT_PROJECT_ID_HERE/g, process.env.VITE_projectId as string)
-                .replace(/INSERT_MEASUREMENT_ID_HERE/g, process.env.VITE_measurementId as string)
-                .replace(/INSERT_STORAGE_BUCKET_HERE/g, process.env.VITE_storageBucket as string),
-          },
-          {
-            src: normalizePath(`${path.resolve(__dirname, '.')}/firebase-messaging-sw.js.stub`),
-            dest: normalizePath(`${path.resolve(__dirname, './dist')}`),
-            rename: 'firebase-messaging-sw.js',
-            overwrite: true,
-            transform: (contents) =>
-              contents
-                .toString()
-                .replace(/INSERT_API_KEY_HERE/g, process.env.VITE_apiKey as string)
-                .replace(/INSERT_MESSAGING_SENDER_ID_HERE/g, process.env.VITE_messageSenderId as string)
-                .replace(/INSERT_AUTH_DOMAIN_HERE/g, process.env.VITE_authDomain as string)
-                .replace(/INSERT_APP_ID_HERE/g, process.env.VITE_appId as string)
-                .replace(/INSERT_PROJECT_ID_HERE/g, process.env.VITE_projectId as string)
-                .replace(/INSERT_MEASUREMENT_ID_HERE/g, process.env.VITE_measurementId as string)
-                .replace(/INSERT_STORAGE_BUCKET_HERE/g, process.env.VITE_storageBucket as string),
-          },
-        ],
-      }),
+      // viteStaticCopy({
+      //   targets: [
+      //     {
+      //       src: normalizePath(`${path.resolve(__dirname, '.')}/firebase-messaging-sw.js`),
+      //       dest: normalizePath(`${path.resolve(__dirname, './public')}`),
+      //       overwrite: true,
+      //       transform: (contents) =>
+      //         contents
+      //           .toString()
+      //           .replace(/INSERT_API_KEY_HERE/g, process.env.VITE_apiKey as string)
+      //           .replace(/INSERT_MESSAGING_SENDER_ID_HERE/g, process.env.VITE_messageSenderId as string)
+      //           .replace(/INSERT_AUTH_DOMAIN_HERE/g, process.env.VITE_authDomain as string)
+      //           .replace(/INSERT_APP_ID_HERE/g, process.env.VITE_appId as string)
+      //           .replace(/INSERT_PROJECT_ID_HERE/g, process.env.VITE_projectId as string)
+      //           .replace(/INSERT_MEASUREMENT_ID_HERE/g, process.env.VITE_measurementId as string)
+      //           .replace(/INSERT_STORAGE_BUCKET_HERE/g, process.env.VITE_storageBucket as string)
+      //           .replace(/INSERT_WEBURL_HERE/g, process.env.VITE_WebURL as string),
+      //     },
+      //     {
+      //       src: normalizePath(`${path.resolve(__dirname, '.')}/firebase-messaging-sw.js`),
+      //       dest: normalizePath(`${path.resolve(__dirname, './dist')}`),
+      //       overwrite: true,
+      //       transform: (contents) =>
+      //         contents
+      //           .toString()
+      //           .replace(/INSERT_API_KEY_HERE/g, process.env.VITE_apiKey as string)
+      //           .replace(/INSERT_MESSAGING_SENDER_ID_HERE/g, process.env.VITE_messageSenderId as string)
+      //           .replace(/INSERT_AUTH_DOMAIN_HERE/g, process.env.VITE_authDomain as string)
+      //           .replace(/INSERT_APP_ID_HERE/g, process.env.VITE_appId as string)
+      //           .replace(/INSERT_PROJECT_ID_HERE/g, process.env.VITE_projectId as string)
+      //           .replace(/INSERT_MEASUREMENT_ID_HERE/g, process.env.VITE_measurementId as string)
+      //           .replace(/INSERT_STORAGE_BUCKET_HERE/g, process.env.VITE_storageBucket as string)
+      //           .replace(/INSERT_WEBURL_HERE/g, process.env.VITE_WebURL as string),
+      //     },
+      //   ],
+      // }),
       react(),
       VitePWA({
-        injectRegister: 'auto',
         registerType: 'autoUpdate',
+        injectRegister: 'auto', // I register SW in app.ts, disable auto registration
         // minimum PWA
         includeAssets: ['favicon.ico', 'robots.txt', '*.svg', '*.{png,ico}', '*.{json}', '*.js'],
-        workbox: {
-          sourcemap: true,
-        },
+        workbox: {},
       }),
 
       splitVendorChunkPlugin(),
