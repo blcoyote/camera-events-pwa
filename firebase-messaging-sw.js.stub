@@ -22,13 +22,19 @@ firebase.initializeApp(firebaseConfig);
 // Retrieve firebase messaging
 const messaging = firebase.messaging();
 
-// messaging.onBackgroundMessage((payload) => {
-// 	console.log("Received background message ", payload);
+messaging.onBackgroundMessage((payload) => {
+	const notificationTitle = payload.notification.title;
+	const notificationOptions = {
+		body: payload.notification.body,
+		actions: [{ action: "open_page", title: "Open" }],
+		data: { url: payload.data.path },
+	};
+	self.registration.showNotification(notificationTitle, notificationOptions);
 
-// 	const notificationTitle = payload.notification.title;
-// 	const notificationOptions = {
-// 		body: payload.notification.body,
-// 	};
+	self.addEventListener("notificationclick", (event) => {
+		const data = event.notification.data;
+		event.notification.close();
+		self.clients.openWindow(data.url);
+	});
+});
 
-// 	self.registration.showNotification(notificationTitle, notificationOptions);
-// });
