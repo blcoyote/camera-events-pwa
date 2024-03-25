@@ -11,7 +11,7 @@ export const Component = () => {
 			justify="space-between"
 			gap={"1rem"}
 			direction={"column"}
-			style={{ paddingLeft: "1rem", paddingRight: "1rem", marginTop: "1rem" }}
+			style={{ paddingLeft: "1rem", paddingRight: "1rem", marginTop: "0.5rem" }}
 		>
 			<Title size={"h3"} c={"dimmed"}>
 				Camera events
