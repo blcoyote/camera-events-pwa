@@ -11,12 +11,21 @@ export const router = createBrowserRouter([
 			{
 				path: "events",
 				lazy: () => import("../pages/events-list-page"),
+				children: [
+					{
+						path: ":id",
+						lazy: () => import("../pages/events-list-page"),
+					},
+				],
 			},
 			{
 				path: "event/:id",
 				lazy: () => import("../pages/event-details-page"),
 			},
-
+			{
+				path: "eventnotification/:id",
+				lazy: () => import("../pages/event-details-page"),
+			},
 			{ path: "about", lazy: () => import("../pages/about-page") },
 			{ path: "settings", lazy: () => import("../pages/settings-page") },
 		],
