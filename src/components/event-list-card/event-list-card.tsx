@@ -74,7 +74,7 @@ export const EventListCard = (props: CameraEvent) => {
 									{`Label: ${props.label}`}
 								</Text>
 								<Text size="sm" c="dimmed">
-									{`Probability: ${(props.data.top_score * 100).toFixed(2)}%`}
+									{`Probability: ${(props.data.score * 100).toFixed(2)}%`}
 								</Text>
 								<Text size="sm" c="dimmed">
 									{`EventId: ${props.id}`}

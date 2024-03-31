@@ -84,7 +84,7 @@ export const EventContainer = (props: EventContainerProps) => {
 				<Flex gap={"1rem"} direction={"row"} mx={"1rem"}>
 					<Text style={{ fontWeight: "bold" }}>Probability: </Text>
 					<Skeleton visible={isLoading}>
-						<Text>{event?.data.top_score}</Text>
+						<Text>{`${event && (event.data.score * 100).toFixed(2)}%`}</Text>
 					</Skeleton>
 				</Flex>
 				<Divider w={"100%"} label={"Downloads"} labelPosition="center" />

@@ -2,9 +2,10 @@ import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { useEventList } from "../hooks/use-event-list";
 import { EventListCard } from "../components/event-list-card";
 import { Flex, Title } from "@mantine/core";
+import { EventListCardLoader } from "../components/event-list-card/event-list-card-loader";
 
 export const Component = () => {
-	const { data } = useEventList();
+	const { data, loading } = useEventList();
 
 	return (
 		<Flex
@@ -20,7 +21,7 @@ export const Component = () => {
 			<Title size={"h3"} c={"dimmed"}>
 				Camera events
 			</Title>
-
+			{loading && [1, 2, 3].map((key) => <EventListCardLoader key={key} />)}
 			{data?.map((event) => (
 				<EventListCard key={event.id} {...event} />
 			))}
