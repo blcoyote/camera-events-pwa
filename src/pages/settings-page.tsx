@@ -1,18 +1,39 @@
 import { Box, Button, Paper, Slider, Text } from '@mantine/core';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSettings from '../hooks/use-settings';
+import { useAuthProvider } from '../hooks/use-auth-provider';
+import { useApi } from '../hooks/use-api.tsx';
+import { useMutation } from '@tanstack/react-query';
+import { getMessageToken } from '../config/firebase.ts';
 
 export const Component = () => {
   const { eventLimit, setEventLimit } = useSettings();
   const [value, setValue] = useState(eventLimit);
+  const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
   const minValue = 0;
   const maxValue = 100;
+  const { token } = useAuthProvider();
+  const { api } = useApi();
+
+  const { mutate } = useMutation({
+    mutationFn: () => api.get(`/v2/fcm?fcm_token=${fcmToken}&token=${token}`),
+  });
+
+  useEffect(() => {
+    if (fcmToken && token) {
+      mutate();
+    }
+  }, [fcmToken, mutate, token]);
 
   const toggleNotifications = () => {
     Notification.requestPermission().then(function (permission) {
       //TODO: fcm subscribe
+
+      if (permission === 'granted') {
+        getMessageToken(setTokenFound);
+      }
       console.log('permiss', permission);
     });
   };
