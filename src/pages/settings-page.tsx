@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Paper, Slider, Text } from '@mantine/core';
+import { Box, Button, Paper, Slider, Text } from '@mantine/core';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 import { useState } from 'react';
