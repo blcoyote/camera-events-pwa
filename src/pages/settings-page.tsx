@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Slider, Text } from '@mantine/core';
+import { Box, Button, Paper, Slider, Stack, Text } from '@mantine/core';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
@@ -29,40 +29,39 @@ export const Component = () => {
 
   const toggleNotifications = () => {
     Notification.requestPermission().then(function (permission) {
-      //TODO: fcm subscribe
-
       if (permission === 'granted') {
         getMessageToken(setTokenFound);
       }
-      console.log('permiss', permission);
     });
   };
 
-  const notificationButtonTitle = Notification.permission === 'granted' ? 'Disable' : 'Enable';
+  const notificationButtonTitle = Notification.permission === 'granted' ? 'Enabled' : 'Enable';
 
   return (
     <Paper shadow='xs' p='xl'>
-      <Box maw={400} mx='auto'>
-        <Text>Maximum displayed events:</Text>
-        <Slider
-          min={minValue}
-          max={maxValue}
-          value={value}
-          onChange={setValue}
-          onChangeEnd={setEventLimit}
-          marks={[
-            { value: 0, label: minValue },
-            { value: 100, label: maxValue },
-          ]}
-        />
-      </Box>
+      <Stack dir='column' gap={'1rem'} align='left'>
+        <Box maw={400} mx='auto'>
+          <Text>Maximum displayed events:</Text>
+          <Slider
+            min={minValue}
+            max={maxValue}
+            value={value}
+            onChange={setValue}
+            onChangeEnd={setEventLimit}
+            marks={[
+              { value: 0, label: minValue },
+              { value: 100, label: maxValue },
+            ]}
+          />
+        </Box>
 
-      <Box maw={400} mx='auto'>
-        <Text>Notifications:</Text>
-        <Button variant='outline' color='blue' onClick={toggleNotifications}>
-          {notificationButtonTitle}
-        </Button>
-      </Box>
+        <Box maw={400} mx='auto'>
+          <Text>Notifications:</Text>
+          <Button variant='outline' color='blue' onClick={toggleNotifications}>
+            {notificationButtonTitle}
+          </Button>
+        </Box>
+      </Stack>
     </Paper>
   );
 };
