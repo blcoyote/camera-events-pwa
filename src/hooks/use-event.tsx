@@ -65,7 +65,7 @@ export const useEventClipDownload = (id?: string) => {
     const { isPending, error, isSuccess, mutate } = useMutation({
         mutationFn: () =>
             api
-                .get(`/v2/event/${id}/clip.mp4`, {
+                .get(`/v2/events/${id}/clip.mp4`, {
                     responseType: "arraybuffer",
                 })
                 .then((res) => {
@@ -81,7 +81,7 @@ export const useEventSnapshotDownload = (id?: string) => {
     const { isPending, error, isSuccess, mutate } = useMutation({
         mutationFn: () =>
             api
-                .get(`/v2/event/${id}/snapshot.jpg`, {
+                .get(`/v2/events/${id}/snapshot.jpg`, {
                     responseType: "arraybuffer",
                 })
                 .then((res) => {
