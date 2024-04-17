@@ -30,9 +30,9 @@ export const getMessageToken = (
 	return getToken(messaging, { vapidKey: import.meta.env.VITE_MESSAGINGKEY })
 		.then((currentToken) => {
 			if (currentToken) {
-				console.log("current fcm token for client: ", currentToken);
-				setTokenFound(currentToken);
-			} else {
+                //console.log("current fcm token for client: ", currentToken);
+                setTokenFound(currentToken);
+            } else {
 				//console.log('No registration token available. Request permission to generate one.');
 				setTokenFound(undefined);
 				// shows on the UI that permission is required

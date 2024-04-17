@@ -22,7 +22,6 @@ export default function App() {
 	useEffect(() => {
         getMessageToken(setTokenFound);
     }, []);
-    console.log(fcmToken);
 
 	onMessageListener().then((payload) => {
 		console.log("payload", payload);
