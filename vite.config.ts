@@ -2,7 +2,6 @@ import { defineConfig, loadEnv, normalizePath } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { splitVendorChunkPlugin } from "vite";
 import path from "node:path";
 
 export default ({ mode }: { mode: string }) => {
@@ -135,8 +134,6 @@ export default ({ mode }: { mode: string }) => {
                 ],
                 workbox: {},
             }),
-
-            splitVendorChunkPlugin(),
         ],
         build: {
             rollupOptions: {
