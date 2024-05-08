@@ -20,8 +20,8 @@ export default function App() {
 	const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
-		getMessageToken(setTokenFound);
-	}, []);
+        getMessageToken(setTokenFound);
+    }, []);
 
 	onMessageListener().then((payload) => {
 		console.log("payload", payload);

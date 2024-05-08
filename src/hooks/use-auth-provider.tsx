@@ -26,20 +26,25 @@ export const useAuthProvider = () => {
 	};
 
 	useEffect(() => {
-		user?.getIdToken().then((token) => {
-			setToken(token);
-		});
-	}, [user]);
+        refreshToken();
+    }, [user]);
 
-	const autenticated: boolean = user !== null && user !== undefined;
+    const refreshToken = () => {
+        user?.getIdToken(true).then((token) => {
+            setToken(token);
+        });
+    };
 
-	return {
-		user,
-		loading,
-		error,
-		signInWithGoogle,
-		handleLogout,
-		autenticated,
-		token,
-	};
+    const autenticated: boolean = user !== null && user !== undefined;
+
+    return {
+        user,
+        loading,
+        error,
+        signInWithGoogle,
+        handleLogout,
+        refreshToken,
+        autenticated,
+        token,
+    };
 };
