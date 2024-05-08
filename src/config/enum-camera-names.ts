@@ -1,9 +1,9 @@
 export enum CameraNames {
-  garage = 'garage',
-  gavl_vest = 'gavl vest',
-  gavl_oest = 'gavl øst',
-  have = 'have',
-  stuen = 'stuen',
-  koekken = 'køkken',
-  reserve = 'reserve',
+    garage = "Garage",
+    gavl_vest = "Gavl vest",
+    gavl_oest = "Gavl øst",
+    have = "Have",
+    stuen = "Stuen",
+    koekken = "Køkken",
+    reserve = "Reserve",
 }
