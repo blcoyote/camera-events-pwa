@@ -5,9 +5,9 @@ import { Flex, Title } from "@mantine/core";
 import { EventListCardLoader } from "../components/event-list-card/event-list-card-loader";
 
 export const Component = () => {
-	const { data, loading } = useEventList();
+    const { data, loading } = useEventList();
 
-	return (
+    return (
         <Flex
             justify="space-between"
             gap={"1rem"}
