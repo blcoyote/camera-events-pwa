@@ -6,6 +6,7 @@ import { EventListCardLoader } from "../components/event-list-card/event-list-ca
 
 export const Component = () => {
 	const { data, loading } = useEventList();
+	const { data, loading } = useEventList();
 
 	return (
         <Flex
