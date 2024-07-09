@@ -26,7 +26,7 @@ export const useAuthProvider = () => {
 	};
 
 	useEffect(() => {
-        refreshToken();
+        if (user) refreshToken();
     }, [user]);
 
     const refreshToken = () => {
