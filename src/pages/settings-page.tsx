@@ -28,10 +28,10 @@ export const Component = () => {
   }, [fcmToken, mutate, token]);
 
   const toggleNotifications = () => {
-    Notification.requestPermission().then(function (permission) {
-      if (permission === 'granted') {
-        getMessageToken(setTokenFound);
-      }
+    Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+            getMessageToken(setTokenFound);
+        }
     });
   };
 
