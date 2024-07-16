@@ -9,23 +9,25 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 export const useAuthProvider = () => {
 	const [user, loading, error] = useAuthState(auth);
-	const [token, setToken] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(null);
+    const [loginError, setLoginError] = useState<string | null>(null);
 
-	const signInWithGoogle = async () => {
-		try {
-			await setPersistence(auth, browserLocalPersistence).then(() => {
-				return signInWithPopup(auth, googleProvider);
-			});
-		} catch (error) {
-			console.error("Error signing in with Google:", error);
-		}
-	};
+    const signInWithGoogle = async () => {
+        try {
+            await setPersistence(auth, browserLocalPersistence).then(() => {
+                return signInWithPopup(auth, googleProvider);
+            });
+        } catch (error) {
+            console.error("Error signing in with Google:", error);
+            setLoginError(String(error));
+        }
+    };
 
-	const handleLogout = () => {
-		auth.signOut();
-	};
+    const handleLogout = () => {
+        auth.signOut();
+    };
 
-	useEffect(() => {
+    useEffect(() => {
         if (user) refreshToken();
     }, [user]);
 
@@ -46,5 +48,6 @@ export const useAuthProvider = () => {
         refreshToken,
         autenticated,
         token,
+        loginError,
     };
 };

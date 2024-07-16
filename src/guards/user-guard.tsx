@@ -3,7 +3,7 @@ import { useAuthProvider } from "../hooks/use-auth-provider";
 import { UnauthenticatedPage } from "../pages/unauthenticated-page";
 
 export const UserGuard = (props: { children: React.ReactElement }) => {
-	const { user, loading, error } = useAuthProvider();
+	const { user, loading, loginError } = useAuthProvider();
 
     if (loading) {
         return (
@@ -17,5 +17,5 @@ export const UserGuard = (props: { children: React.ReactElement }) => {
         return props.children;
     }
 
-    return <UnauthenticatedPage error={error} />;
+    return <UnauthenticatedPage error={loginError ?? undefined} />;
 };
