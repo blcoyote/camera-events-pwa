@@ -7,63 +7,76 @@ import { useAuthProvider } from '../hooks/use-auth-provider';
 import { useApi } from '../hooks/use-api.tsx';
 import { useMutation } from '@tanstack/react-query';
 import { getMessageToken } from '../config/firebase.ts';
+import { iOS } from "../lib/devices.ts";
 
 export const Component = () => {
-  const { eventLimit, setEventLimit } = useSettings();
-  const [value, setValue] = useState(eventLimit);
-  const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
-  const minValue = 0;
-  const maxValue = 100;
-  const { token } = useAuthProvider();
-  const { api } = useApi();
+    const { eventLimit, setEventLimit } = useSettings();
+    const [value, setValue] = useState(eventLimit);
+    const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
+    const minValue = 0;
+    const maxValue = 100;
+    const { token } = useAuthProvider();
+    const { api } = useApi();
 
-  const { mutate } = useMutation({
-    mutationFn: () => api.get(`/v2/fcm?fcm_token=${fcmToken}&token=${token}`),
-  });
+    const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
+    const showNotifications = isInstalled || !iOS();
 
-  useEffect(() => {
-    if (fcmToken && token) {
-      mutate();
-    }
-  }, [fcmToken, mutate, token]);
+    const notificationButtonTitle =
+        showNotifications && Notification.permission === "granted"
+            ? "Enabled"
+            : "Enable";
 
-  const toggleNotifications = () => {
-    Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-            getMessageToken(setTokenFound);
-        }
+    const { mutate } = useMutation({
+        mutationFn: () =>
+            api.get(`/v2/fcm?fcm_token=${fcmToken}&token=${token}`),
     });
-  };
 
-  const notificationButtonTitle = Notification.permission === 'granted' ? 'Enabled' : 'Enable';
+    useEffect(() => {
+        if (fcmToken && token) {
+            mutate();
+        }
+    }, [fcmToken, mutate, token]);
 
-  return (
-    <Paper shadow='xs' p='xl'>
-      <Stack dir='column' gap={'1rem'} align='left'>
-        <Box maw={400} mx='auto'>
-          <Text>Maximum displayed events:</Text>
-          <Slider
-            min={minValue}
-            max={maxValue}
-            value={value}
-            onChange={setValue}
-            onChangeEnd={setEventLimit}
-            marks={[
-              { value: 0, label: minValue },
-              { value: 100, label: maxValue },
-            ]}
-          />
-        </Box>
+    const toggleNotifications = () => {
+        Notification.requestPermission().then((permission) => {
+            if (permission === "granted") {
+                getMessageToken(setTokenFound);
+            }
+        });
+    };
 
-        <Box maw={400} mx='auto'>
-          <Text>Notifications:</Text>
-          <Button variant='outline' color='blue' onClick={toggleNotifications}>
-            {notificationButtonTitle}
-          </Button>
-        </Box>
-      </Stack>
-    </Paper>
-  );
+    return (
+        <Paper shadow="xs" p="xl">
+            <Stack dir="column" gap={"1rem"} align="left">
+                <Box maw={400} mx="auto">
+                    <Text>Maximum displayed events:</Text>
+                    <Slider
+                        min={minValue}
+                        max={maxValue}
+                        value={value}
+                        onChange={setValue}
+                        onChangeEnd={setEventLimit}
+                        marks={[
+                            { value: 0, label: minValue },
+                            { value: 100, label: maxValue },
+                        ]}
+                    />
+                </Box>
+                {showNotifications && (
+                    <Box maw={400} mx="auto">
+                        <Text>Notifications:</Text>
+                        <Button
+                            variant="outline"
+                            color="blue"
+                            onClick={toggleNotifications}
+                        >
+                            {notificationButtonTitle}
+                        </Button>
+                    </Box>
+                )}
+            </Stack>
+        </Paper>
+    );
 };
 
 Component.displayName = 'SettingsPageLazyRoute';
