@@ -10,7 +10,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export const useAuthProvider = () => {
 	const [user, loading, error] = useAuthState(auth);
     const [token, setToken] = useState<string | null>(null);
-    const [loginError, setLoginError] = useState<string | null>(null);
 
     const signInWithGoogle = async () => {
         try {
@@ -19,7 +18,6 @@ export const useAuthProvider = () => {
             });
         } catch (error) {
             console.error("Error signing in with Google:", error);
-            setLoginError(String(error));
         }
     };
 
@@ -48,6 +46,5 @@ export const useAuthProvider = () => {
         refreshToken,
         autenticated,
         token,
-        loginError,
     };
 };
