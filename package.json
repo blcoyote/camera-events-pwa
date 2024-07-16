@@ -21,7 +21,7 @@
         "axios": "^1.6.8",
         "dayjs": "^1.11.10",
         "dotenv": "^16.4.5",
-        "firebase": "^10.12.2",
+        "firebase": "^10.12.3",
         "framer-motion": "^11.0.20",
         "jotai": "^2.7.1",
         "js-file-download": "^0.4.12",
