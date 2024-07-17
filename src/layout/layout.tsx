@@ -66,11 +66,7 @@ export const Layout = () => {
 						{!user && !loading && (
 							<Button
 								type="button"
-								onClick={(e)=>{
-									e.preventDefault()
-									signInWithGoogle()
-
-								}}
+								onClick={signInWithGoogle}
 								style={{ marginLeft: "auto" }}
 							>
 								login
