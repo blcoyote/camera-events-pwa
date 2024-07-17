@@ -64,13 +64,13 @@ export const Layout = () => {
 						{user && avatar()}
 						{loading && <Skeleton width={40} height={40} />}
 						{!user && !loading && (
-							<Button
+							<button
 								type="button"
 								onClick={signInWithGoogle}
 								style={{ marginLeft: "auto" }}
 							>
 								login
-							</Button>
+							</button>
 						)}
 					</Group>
 				</Flex>
