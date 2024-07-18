@@ -55,7 +55,7 @@
     "@vite-pwa/assets-generator": "^0.2.4",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.19",
-    "daisyui": "^4.11.1",
+    "daisyui": "^4.12.10",
     "postcss": "^8.4.38",
     "postcss-preset-mantine": "^1.13.0",
     "postcss-simple-vars": "^7.0.1",

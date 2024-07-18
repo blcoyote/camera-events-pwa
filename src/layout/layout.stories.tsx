@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
-import { Layout } from "./layoutv2";
+import { Layout } from "./layout";
 
 const meta = {
     component: Layout,
-    title: "Components/Navbar",
+    title: "Components/Layout",
 
     decorators: [
         (Story) => {
