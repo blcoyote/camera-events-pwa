@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
-import { Navbar } from "./navbar";
+import { Layout } from "./layoutv2";
 
 const meta = {
-    component: Navbar,
+    component: Layout,
     title: "Components/Navbar",
 
     decorators: [
@@ -11,7 +11,7 @@ const meta = {
             return <Story />;
         },
     ],
-} satisfies Meta<typeof Navbar>;
+} satisfies Meta<typeof Layout>;
 
 export default meta;
 
