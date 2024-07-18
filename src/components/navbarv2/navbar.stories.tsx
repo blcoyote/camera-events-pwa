@@ -4,13 +4,6 @@ import { Navbar } from "./navbar";
 
 const meta = {
     component: Navbar,
-    args: {
-        darId: "1234",
-        backNavigationUrl: "/back",
-        onSubmit: () => {
-            console.log("submit");
-        },
-    },
     title: "Components/Navbar",
 
     decorators: [
