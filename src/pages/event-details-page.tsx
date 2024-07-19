@@ -9,7 +9,6 @@ import { useEventSnapshot } from "../hooks/use-event";
 import { EventContainer } from "../components/event-card/event-card";
 import { motion } from "framer-motion";
 import { useGetCameraEventDetailsQuery } from "../services/camera-api";
-import { CameraEvent } from "../models/camera-event.model";
 
 export const Component = () => {
     const { id } = useParams();
