@@ -19,7 +19,7 @@ export const cameraApi = createApi({
     getCameraEvents: builder.query<CameraEvent[], number>({
        query: (queryArg) => ({ 
         method: 'GET',
-        url: `/v2/events`, 
+        url: `/v2/events/`, 
         params: { limit: queryArg }} ),
     }),
     getCameraEventDetails: builder.query<CameraEvent, string>({

@@ -11,6 +11,7 @@ export const Component = () => {
             {data?.map((event) => <div key={event.id}>{event.camera}</div>)}
             <p>{isLoading === true ? "loading" : "not loading"}</p>
             <p>{error ? "error!" : "no error"}</p>
+            <br />
             <h2>test2</h2>
             {data2?.map((event) => <div key={event.id}>{event.camera}</div>)}
         </div>
