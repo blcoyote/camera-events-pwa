@@ -57,7 +57,7 @@ export const Component = () => {
                     <EventContainer
                         event={eventData}
                         isLoading={isLoading}
-                        isError={isError !== null}
+                        isError={isError}
                         isSuccess={isSuccess}
                         isSnapshotLoading={snapshotLoading}
                         snapshotData={snapshotData}
