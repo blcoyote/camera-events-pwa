@@ -31,12 +31,11 @@ export const Component = () => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                style={{ marginTop: "0.5rem" }}
             >
-                <div className="hover:bg-stone-300 rounded-box w-6">
+                <div className="btn btn-circle glass relative top-12">
                     <IconArrowBackUp
                         onClick={navigateToEventsPage}
-                        className="my-4 cursor-pointer text-secondary"
+                        className="text-secondary"
                     />
                 </div>
                 <EventContainer

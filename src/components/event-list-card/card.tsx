@@ -23,22 +23,18 @@ export const Card = (props: CameraEvent) => {
             }}
         >
             <figure>
-                <img src={image} alt="Thumbnail" className="scale-110" />
+                <img src={image} alt="Thumbnail" className="h-fit scale-150" />
             </figure>
-            <div className="absolute right-4 top-4 badge badge-accent">
+            <div className="absolute right-2 top-2 badge badge-accent">
                 {CameraNames[props.camera as keyof typeof CameraNames] ??
                     "Unknown"}
             </div>
-            <div className="card-body pt-4">
-                <h2 className="card-title">
-                    {timestamp.format("DD/MM/YYYY HH:mm:ss")}
+            <div className="card-body ">
+                <h2 className="card-title text-sm md:text-lg">
+                    {timestamp.format("DD/MM/YYYY HH:mm")}
                 </h2>
-
                 <p>{`Label: ${props.label}`}</p>
-
                 <p>{`Probability: ${(props.data.score * 100).toFixed(2)}%`}</p>
-
-                <p>{`EventId: ${props.id}`}</p>
             </div>
         </div>
     );

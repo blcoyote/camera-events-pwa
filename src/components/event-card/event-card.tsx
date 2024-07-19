@@ -26,29 +26,26 @@ export const EventContainer = (props: EventContainerProps) => {
     }
 
     return (
-        <div className="card-normal bg-base-100 w-96 rounded-box shadow-xl ">
+        <div className="card-normal bg-base-100 max-w-xl max-h-dvh rounded-box shadow-xl ">
             <figure>
-                <img src={image} alt="car!" className="rounded-t-box" />
+                <img src={image} alt="survellance" className="rounded-t-box" />
             </figure>
-            <div className="card-body">
-                <div className="badge badge-accent">
+            <div className="card-body relative">
+                <div className="badge badge-accent absolute top-2 right-2">
                     {CameraNames[event?.camera as keyof typeof CameraNames] ??
                         "Unknown"}
                 </div>
-                <div className="card-body pt-4">
-                    <h2 className="card-title">
-                        {event &&
-                            dayjs
-                                .unix(event?.start_time)
-                                .format("DD MMM. YYYY HH:mm:ss")}
-                    </h2>
 
-                    <p>{`Label: ${event?.label}`}</p>
+                <h2 className="card-title">
+                    {event &&
+                        dayjs
+                            .unix(event?.start_time)
+                            .format("DD MMM. YYYY HH:mm:ss")}
+                </h2>
+                <p>{`Label: ${event?.label}`}</p>
+                <p>{`Probability: ${event && (event?.data.score * 100).toFixed(2)}%`}</p>
+                <p>{`EventId: ${event?.id}`}</p>
 
-                    <p>{`Probability: ${event && (event?.data.score * 100).toFixed(2)}%`}</p>
-
-                    <p>{`EventId: ${event?.id}`}</p>
-                </div>
                 <div className="divider" />
                 <div className="flex justify-evenly ">
                     <motion.div
