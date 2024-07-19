@@ -60,5 +60,8 @@
     "typescript": "^5.5.3",
     "vite": "^5.1.6",
     "vite-plugin-pwa": "^0.19.6"
+  },
+    "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.18.0"
   }
 }
