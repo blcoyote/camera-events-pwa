@@ -155,9 +155,6 @@ export default ({ mode }: { mode: string }) => {
                         if (id.includes("framer")) {
                             return "@framer";
                         }
-                        if (id.includes("mantine")) {
-                            return "@mantine";
-                        }
                     },
                 },
             },

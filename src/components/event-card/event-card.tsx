@@ -16,10 +16,9 @@ interface EventContainerProps {
 }
 
 export const EventContainer = (props: EventContainerProps) => {
-    const { event, isLoading, isError, isSnapshotLoading, snapshotData } =
-        props;
+    const { event, isError, snapshotData } = props;
     const image = snapshotData && `data:image/jpeg;base64,${snapshotData}`;
-    const fallbackImage = "https://placehold.co/600x400?text=error";
+    //const fallbackImage = "https://placehold.co/600x400?text=error";
     const { token } = useAuthProvider();
 
     if (isError) {

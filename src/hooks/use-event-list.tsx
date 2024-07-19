@@ -4,30 +4,31 @@ import useSettings from "./use-settings";
 import { useApi } from "./use-api.tsx";
 
 export const useEventList = () => {
-	const { api, hasToken } = useApi();
-	const { eventLimit } = useSettings();
+    const { api, hasToken } = useApi();
+    const { eventLimit } = useSettings();
 
-	const params = { limit: eventLimit };
+    const params = { limit: eventLimit };
 
-	const {
-		isPending,
-		error,
-		data,
-		isFetching,
-		isLoading,
-		isRefetching,
-		isSuccess,
-	} = useQuery({
-		queryKey: ["eventList"],
-		enabled: hasToken,
-		queryFn: () =>
-			api
-				.get("/v2/events/", {
-					params: params,
-				})
-				.then((res) => res.data as CameraEvent[]),
-	});
+    const {
+        isPending,
+        error,
+        data,
+        isFetching,
+        isLoading,
+        isRefetching,
+        isSuccess,
+    } = useQuery({
+        queryKey: ["eventList"],
+        enabled: hasToken,
+        queryFn: () =>
+            api
+                .get("/v2/events/", {
+                    params: params,
+                })
+                .then((res) => res.data as CameraEvent[]),
+    });
 
-	const loading = isFetching || isLoading || isPending || isRefetching;
-	return { loading, error, data, isSuccess };
+    const loading = isFetching || isLoading || isPending || isRefetching;
+    return { loading, error, data, isSuccess };
 };
+

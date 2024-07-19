@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Navbar } from "../components/navbarv2/navbar";
+import { Navbar } from "../components/navbar/navbar";
 import { UserGuard } from "../guards/user-guard";
 
 export const Layout = () => {

@@ -1,12 +1,10 @@
-import { Box, Button, Paper, Slider, Stack, Text } from '@mantine/core';
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
-
-import { useEffect, useState } from 'react';
-import useSettings from '../hooks/use-settings';
-import { useAuthProvider } from '../hooks/use-auth-provider';
-import { useApi } from '../hooks/use-api.tsx';
-import { useMutation } from '@tanstack/react-query';
-import { getMessageToken } from '../config/firebase.ts';
+import { isRouteErrorResponse, useRouteError } from "react-router-dom";
+import { SyntheticEvent, useEffect, useState } from "react";
+import useSettings from "../hooks/use-settings";
+import { useAuthProvider } from "../hooks/use-auth-provider";
+import { useApi } from "../hooks/use-api.tsx";
+import { useMutation } from "@tanstack/react-query";
+import { getMessageToken } from "../config/firebase.ts";
 import { iOS } from "../lib/devices.ts";
 
 export const Component = () => {
@@ -37,6 +35,15 @@ export const Component = () => {
         }
     }, [fcmToken, mutate, token]);
 
+    const handleMaxEventsChange = (event: SyntheticEvent<HTMLInputElement>) => {
+        setValue(event.currentTarget.value);
+    };
+
+    useEffect(() => {
+        setEventLimit(value);
+        console.log(value);
+    }, [value]);
+
     const toggleNotifications = () => {
         Notification.requestPermission().then((permission) => {
             if (permission === "granted") {
@@ -46,50 +53,56 @@ export const Component = () => {
     };
 
     return (
-        <Paper shadow="xs" p="xl">
-            <Stack dir="column" gap={"1rem"} align="left">
-                <Box maw={400} mx="auto">
-                    <Text>Maximum displayed events:</Text>
-                    <Slider
+        <div className="bg-base-100 drop-shadow-sm p-5 rounded-box">
+            <div className="flex gap-5 flex-col justify-items-center">
+                <div className="flex flex-col gap-2">
+                    <h2>Maximum displayed events:</h2>
+
+                    <input
+                        type="range"
                         min={minValue}
                         max={maxValue}
                         value={value}
-                        onChange={setValue}
-                        onChangeEnd={setEventLimit}
-                        marks={[
-                            { value: 0, label: minValue },
-                            { value: 100, label: maxValue },
-                        ]}
+                        className="range range-primary"
+                        step="25"
+                        onChange={handleMaxEventsChange}
                     />
-                </Box>
+                    <div className="flex w-full justify-between px-2 text-xs">
+                        <span>0</span>
+                        <span className="ml-1">25</span>
+                        <span>50</span>
+                        <span className="-mr-1">75</span>
+                        <span className="-mr-2">100</span>
+                    </div>
+                </div>
                 {showNotifications && (
-                    <Box maw={400} mx="auto">
-                        <Text>Notifications:</Text>
-                        <Button
-                            variant="outline"
-                            color="blue"
+                    <div className="flex flex-col gap-2">
+                        <h2>Notifications:</h2>
+                        <button
+                            className="btn btn-primary"
                             onClick={toggleNotifications}
                         >
                             {notificationButtonTitle}
-                        </Button>
-                    </Box>
+                        </button>
+                    </div>
                 )}
-            </Stack>
-        </Paper>
+            </div>
+        </div>
     );
 };
 
-Component.displayName = 'SettingsPageLazyRoute';
+Component.displayName = "SettingsPageLazyRoute";
 
 export function ErrorBoundary() {
-  const error = useRouteError();
-  return isRouteErrorResponse(error) ? (
-    <h1>
-      {error.status} {error.statusText}
-    </h1>
-  ) : (
-    <h1>{error?.toString()}</h1>
-  );
+    const error = useRouteError();
+    return isRouteErrorResponse(error) ? (
+        <h1>
+            {error.status} {error.statusText}
+        </h1>
+    ) : (
+        <h1>{error?.toString()}</h1>
+    );
 }
 
-ErrorBoundary.displayName = 'SettingsErrorBoundary';
+ErrorBoundary.displayName = "SettingsErrorBoundary";
+

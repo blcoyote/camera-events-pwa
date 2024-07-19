@@ -1,4 +1,3 @@
-import { Flex, Loader } from "@mantine/core";
 import { useAuthProvider } from "../hooks/use-auth-provider";
 import { UnauthenticatedPage } from "../pages/unauthenticated-page";
 
@@ -7,9 +6,9 @@ export const UserGuard = (props: { children: React.ReactElement }) => {
 
     if (loading) {
         return (
-            <Flex mih={"10rem"} justify="center" align="center" direction="row">
-                <Loader />
-            </Flex>
+            <div className="w-dvw flex flex-row items-center justify-items-center">
+                <span className="loading loading-ring loading-lg" />
+            </div>
         );
     }
 
@@ -19,3 +18,4 @@ export const UserGuard = (props: { children: React.ReactElement }) => {
 
     return <UnauthenticatedPage />;
 };
+

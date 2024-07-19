@@ -6,14 +6,20 @@ import {
 } from "react-router-dom";
 import { IconArrowBackUp } from "@tabler/icons-react";
 import { useEventDetails, useEventSnapshot } from "../hooks/use-event";
-import { EventContainer } from "../components/event-card/event-cardv2";
+import { EventContainer } from "../components/event-card/event-card";
 import { motion } from "framer-motion";
 
 export const Component = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const canGoBack = History.length > 1;
+
     const navigateToEventsPage = () => {
-        navigate("/events/");
+        if (canGoBack) {
+            navigate(-1);
+        } else {
+            navigate("/events/");
+        }
     };
     const { loading, error, data, isSuccess } = useEventDetails(id);
     const { loading: snapshotLoading, data: snapshotData } =
