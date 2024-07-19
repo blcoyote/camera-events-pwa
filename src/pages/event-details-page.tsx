@@ -5,10 +5,10 @@ import {
     useNavigate,
 } from "react-router-dom";
 import { IconArrowBackUp } from "@tabler/icons-react";
-import { useEventDetails, useEventSnapshot } from "../hooks/use-event";
+import { useEventSnapshot } from "../hooks/use-event";
 import { EventContainer } from "../components/event-card/event-card";
 import { motion } from "framer-motion";
-//import { useGetCameraEventDetailsQuery } from "../services/camera-api";
+import { useGetCameraEventDetailsQuery } from "../services/camera-api";
 
 export const Component = () => {
     const { id } = useParams();
@@ -23,19 +23,19 @@ export const Component = () => {
         }
     };
 
-    const {
-        data: eventData,
-        isSuccess,
-        loading: isLoading,
-        error: isError,
-    } = useEventDetails(id);
-
     // const {
     //     data: eventData,
     //     isSuccess,
-    //     isLoading,
-    //     isError,
-    // } = useGetCameraEventDetailsQuery(id ?? "", { skip: !id });
+    //     loading: isLoading,
+    //     error: isError,
+    // } = useEventDetails(id);
+
+    const {
+        data: eventData,
+        isSuccess,
+        isLoading,
+        isError,
+    } = useGetCameraEventDetailsQuery(id ?? "", { skip: !id });
 
     const { loading: snapshotLoading, data: snapshotData } =
         useEventSnapshot(id);
