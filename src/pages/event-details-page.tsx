@@ -32,7 +32,7 @@ export const Component = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="btn btn-circle glass relative top-12">
+                <div className="btn btn-circle relative top-12">
                     <IconArrowBackUp
                         onClick={navigateToEventsPage}
                         className="text-secondary"
