@@ -5,7 +5,7 @@ import { CameraEvent } from '../models/camera-event.model'
 export const cameraApi = createApi({
   reducerPath: 'cameraApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: '/api', 
+    baseUrl: `${import.meta.env.VITE_BaseURL}/api`, 
     
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json;charset=UTF-8"')
