@@ -1,21 +1,21 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
-import { useEventList } from "../hooks/use-event-list";
 import { EventListCard } from "../components/event-list-card";
 import { EventListCardLoader } from "../components/event-list-card/event-list-card-loader";
+import { useGetCameraEventsQuery } from "../services/camera-api";
 
 export const Component = () => {
-    const { data, loading } = useEventList();
+    const { data, isLoading } = useGetCameraEventsQuery(10);
 
     return (
         <div className="grid content-center pt-5 lg:grid-cols-2 gap-4 w-max-dvw">
-            {loading &&
+            {isLoading &&
                 [1, 2, 3].map((key) => <EventListCardLoader key={key} />)}
-            {!loading &&
+            {!isLoading &&
                 data?.map((event) => (
                     <EventListCard
                         key={event.id}
                         {...event}
-                        isLoading={loading}
+                        isLoading={isLoading}
                     />
                 ))}
         </div>

@@ -5,9 +5,11 @@ import {
     useNavigate,
 } from "react-router-dom";
 import { IconArrowBackUp } from "@tabler/icons-react";
-import { useEventDetails, useEventSnapshot } from "../hooks/use-event";
+import { useEventSnapshot } from "../hooks/use-event";
 import { EventContainer } from "../components/event-card/event-card";
 import { motion } from "framer-motion";
+import { useGetCameraEventDetailsQuery } from "../services/camera-api";
+import { CameraEvent } from "../models/camera-event.model";
 
 export const Component = () => {
     const { id } = useParams();
@@ -21,7 +23,14 @@ export const Component = () => {
             navigate("/events/");
         }
     };
-    const { loading, error, data, isSuccess } = useEventDetails(id);
+
+    const {
+        data: eventData,
+        isSuccess,
+        isLoading,
+        isError,
+    } = useGetCameraEventDetailsQuery(id ?? "", { skip: !id });
+
     const { loading: snapshotLoading, data: snapshotData } =
         useEventSnapshot(id);
 
@@ -32,21 +41,23 @@ export const Component = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="btn btn-circle relative top-12">
-                    <IconArrowBackUp
-                        onClick={navigateToEventsPage}
-                        className="text-secondary"
+                <button
+                    className="btn btn-circle relative top-12"
+                    onClick={navigateToEventsPage}
+                >
+                    <IconArrowBackUp className="text-secondary" />
+                </button>
+                {eventData && (
+                    <EventContainer
+                        event={eventData}
+                        isLoading={isLoading}
+                        isError={isError}
+                        isSuccess={isSuccess}
+                        isSnapshotLoading={snapshotLoading}
+                        snapshotData={snapshotData}
+                        refetch={() => {}}
                     />
-                </div>
-                <EventContainer
-                    event={data}
-                    isLoading={loading}
-                    isError={error !== null}
-                    isSuccess={isSuccess}
-                    isSnapshotLoading={snapshotLoading}
-                    snapshotData={snapshotData}
-                    refetch={() => {}}
-                />
+                )}
             </motion.div>
         </div>
     );

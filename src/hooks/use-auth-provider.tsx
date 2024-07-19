@@ -1,14 +1,14 @@
 import { auth, googleProvider } from "../config/firebase";
 import {
-	browserLocalPersistence,
-	setPersistence,
-	signInWithPopup,
+    browserLocalPersistence,
+    setPersistence,
+    signInWithPopup,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export const useAuthProvider = () => {
-	const [user, loading, error] = useAuthState(auth);
+    const [user, loading, error] = useAuthState(auth);
     const [token, setToken] = useState<string | null>(null);
     const [loggedOut, setLoggedOut] = useState<boolean>(false);
 
@@ -35,6 +35,7 @@ export const useAuthProvider = () => {
 
     const refreshToken = () => {
         user?.getIdToken(true).then((token) => {
+            localStorage.setItem("token", token);
             setToken(token);
         });
     };
@@ -53,3 +54,4 @@ export const useAuthProvider = () => {
         loggedOut,
     };
 };
+

@@ -10,7 +10,7 @@ import { iOS } from "../lib/devices.ts";
 export const Component = () => {
     const { eventLimit, setEventLimit } = useSettings();
     const [value, setValue] = useState(eventLimit);
-    const [fcmToken, setTokenFound] = useState<string | undefined>(undefined);
+    const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
     const minValue = 0;
     const maxValue = 100;
     const { token } = useAuthProvider();
@@ -47,7 +47,7 @@ export const Component = () => {
     const toggleNotifications = () => {
         Notification.requestPermission().then((permission) => {
             if (permission === "granted") {
-                getMessageToken(setTokenFound);
+                getMessageToken(setFcmToken);
             }
         });
     };

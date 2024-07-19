@@ -6,6 +6,8 @@ import { FirebaseNotificationProvider } from "./FirebaseNotificationProvider";
 import { useEffect, useState } from "react";
 import { getMessageToken, onMessageListener } from "./config/firebase";
 import { ToastContainer, toast } from "react-toastify";
+import { Provider as ReduxProvider } from "react-redux";
+import { store as reduxStore } from "./state/store";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
@@ -37,17 +39,19 @@ export default function App() {
     });
 
     return (
-        <JotaiProvider store={store}>
-            <QueryClientProvider client={queryClient}>
-                <FirebaseNotificationProvider fcmToken={fcmToken}>
-                    <RouterProvider
-                        router={router}
-                        future={{ v7_startTransition: true }}
-                    />
-                    <ToastContainer />
-                </FirebaseNotificationProvider>
-            </QueryClientProvider>
-        </JotaiProvider>
+        <ReduxProvider store={reduxStore}>
+            <JotaiProvider store={store}>
+                <QueryClientProvider client={queryClient}>
+                    <FirebaseNotificationProvider fcmToken={fcmToken}>
+                        <RouterProvider
+                            router={router}
+                            future={{ v7_startTransition: true }}
+                        />
+                        <ToastContainer />
+                    </FirebaseNotificationProvider>
+                </QueryClientProvider>
+            </JotaiProvider>
+        </ReduxProvider>
     );
 }
 
