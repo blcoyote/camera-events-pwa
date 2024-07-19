@@ -35,7 +35,6 @@ export const EventContainer = (props: EventContainerProps) => {
                     {CameraNames[event?.camera as keyof typeof CameraNames] ??
                         "Unknown"}
                 </div>
-
                 <h2 className="card-title">
                     {event &&
                         dayjs
@@ -45,7 +44,6 @@ export const EventContainer = (props: EventContainerProps) => {
                 <p>{`Label: ${event?.label}`}</p>
                 <p>{`Probability: ${event && (event?.data.score * 100).toFixed(2)}%`}</p>
                 <p>{`EventId: ${event?.id}`}</p>
-
                 <div className="divider" />
                 <div className="flex justify-evenly ">
                     <motion.div
@@ -66,7 +64,6 @@ export const EventContainer = (props: EventContainerProps) => {
                             />
                         </a>
                     </motion.div>
-
                     <motion.div
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
