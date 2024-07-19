@@ -2,10 +2,12 @@ import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { EventListCard } from "../components/event-list-card";
 import { EventListCardLoader } from "../components/event-list-card/event-list-card-loader";
 import { useGetCameraEventsQuery } from "../services/camera-api";
+import useSettings from "../hooks/use-settings";
 //import { useEventList } from "../hooks/use-events-list";
 
 export const Component = () => {
-    const { data, isLoading } = useGetCameraEventsQuery(10);
+    const { eventLimit } = useSettings();
+    const { data, isLoading } = useGetCameraEventsQuery(eventLimit);
     //const { data, loading: isLoading } = useEventList();
 
     return (
