@@ -21,8 +21,6 @@ export const Card = (props: CameraEvent) => {
                     navigateToEvent();
                 }
             }}
-            onTouchEnd={navigateToEvent}
-            role="button"
         >
             <figure>
                 <img src={image} alt="Thumbnail" className="scale-110" />
