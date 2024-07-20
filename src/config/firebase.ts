@@ -17,7 +17,7 @@ export const firebaseConfig: FirebaseOptions = {
 	measurementId: import.meta.env.VITE_measurementId,
 };
 
-export const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig, 'CameraEvents');
 
 export const auth= getAuth(app)
 
