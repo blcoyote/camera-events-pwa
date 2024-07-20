@@ -23,7 +23,7 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-	const notificationTitle = "manual title"; //payload.notification.title;
+	const notificationTitle = payload.notification.title;
 
 	const notificationUrl = `INSERT_WEBURL_HERE${payload.data.path}/${payload.data.id}`;
 	const notificationOptions = {
