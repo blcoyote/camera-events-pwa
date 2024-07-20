@@ -3,12 +3,10 @@ import { EventListCard } from "../components/event-list-card";
 import { EventListCardLoader } from "../components/event-list-card/event-list-card-loader";
 import { useGetCameraEventsQuery } from "../services/camera-api";
 import useSettings from "../hooks/use-settings";
-//import { useEventList } from "../hooks/use-events-list";
 
 export const Component = () => {
     const { eventLimit } = useSettings();
     const { data, isLoading } = useGetCameraEventsQuery(eventLimit);
-    //const { data, loading: isLoading } = useEventList();
 
     return (
         <div className="grid content-center pt-5 lg:grid-cols-2 gap-4 w-max-dvw">

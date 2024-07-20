@@ -1,9 +1,9 @@
-import { useAuthProvider } from "../hooks/use-auth-provider";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { UnauthenticatedPage } from "../pages/unauthenticated-page";
+import { auth } from "../config/firebase";
 
 export const UserGuard = (props: { children: React.ReactElement }) => {
-    const { user, loading } = useAuthProvider();
-
+    const [user, loading] = useAuthState(auth);
     if (loading && !user) {
         return (
             <div className="w-full h-dvh grid items-center justify-items-center">

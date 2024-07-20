@@ -23,13 +23,6 @@ export const Component = () => {
         }
     };
 
-    // const {
-    //     data: eventData,
-    //     isSuccess,
-    //     loading: isLoading,
-    //     error: isError,
-    // } = useEventDetails(id);
-
     const {
         data: eventData,
         isSuccess,

@@ -2,8 +2,10 @@ import type { CameraEvent } from "../../models/camera-event.model";
 import { IconMovie, IconPhoto } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
-import { useAuthProvider } from "../../hooks/use-auth-provider";
+
 import { CameraNames } from "../../config/enum-camera-names";
+import { auth } from "../../config/firebase";
+import { useIdToken } from "react-firebase-hooks/auth";
 
 interface EventContainerProps {
     event?: CameraEvent;
@@ -18,8 +20,8 @@ interface EventContainerProps {
 export const EventContainer = (props: EventContainerProps) => {
     const { event, isError, snapshotData } = props;
     const image = snapshotData && `data:image/jpeg;base64,${snapshotData}`;
-    //const fallbackImage = "https://placehold.co/600x400?text=error";
-    const { token } = useAuthProvider();
+
+    const [user] = useIdToken(auth);
 
     if (isError) {
         return <div>Error...</div>;
@@ -56,7 +58,7 @@ export const EventContainer = (props: EventContainerProps) => {
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/snapshot.jpg?token=${token}`}
+                            }/snapshot.jpg?token=${user?.getIdToken()}`}
                         >
                             <IconPhoto
                                 size={40}
@@ -74,7 +76,7 @@ export const EventContainer = (props: EventContainerProps) => {
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/clip.mp4?token=${token}`}
+                            }/clip.mp4?token=${user?.getIdToken()}`}
                         >
                             <IconMovie
                                 size={40}

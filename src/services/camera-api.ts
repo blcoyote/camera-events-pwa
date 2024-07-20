@@ -11,7 +11,7 @@ export const cameraApi = createApi({
       headers.set('Content-Type', 'application/json;charset=UTF-8"')
       headers.set('Access-Control-Allow-Origin', '*')
       headers.set('Access-Control-Allow-Credentials', 'true')
-      headers.set('X-token', localStorage.getItem('token') ?? '')
+      headers.set('X-token', sessionStorage.getItem('fbtoken') ?? '')
       return headers
     }
   }),
