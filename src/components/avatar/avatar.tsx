@@ -1,15 +1,17 @@
+import { User } from "firebase/auth";
+
 interface AvatarProps {
-    src?: string;
-    alt: string;
+    user: User;
 }
 
 export const Avatar = (props: AvatarProps) => {
-    const { src, alt } = props;
+    const { user } = props;
     return (
-        <div className="avatar">
-            <div className="w-10 rounded-full drop-shadow-lg">
-                <img src={src} alt={alt} />
+        <div className="avatar drop-shadow-lg">
+            <div className="w-12 rounded-full">
+                <img src={user.photoURL ?? undefined} alt="avatar icon" />
             </div>
         </div>
     );
 };
+

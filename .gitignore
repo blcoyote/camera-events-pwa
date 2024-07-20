@@ -25,3 +25,5 @@ dist-ssr
 .env
 public/firebase-messaging-sw.js
 
+
+*storybook.log
