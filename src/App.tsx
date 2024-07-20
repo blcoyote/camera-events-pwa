@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useIdToken } from "react-firebase-hooks/auth";
 import { useAppDispatch } from "./state/hooks";
 import { setToken } from "./state/auth-slice";
+import { ToastMessage } from "./components/teast-message/toast-message";
 
 export const App = () => {
     const [queryClient] = useState(() => new QueryClient());
@@ -28,18 +29,9 @@ export const App = () => {
 
     onMessageListener().then((payload) => {
         console.log("payload", payload);
-        function ToastDisplay() {
-            return (
-                <div>
-                    <p>
-                        <b>{payload.notification?.title}</b>
-                    </p>
-                    <p>{payload.notification?.body}</p>
-                </div>
-            );
-        }
+
         if (payload.notification?.title && payload.notification?.body) {
-            toast.info(<ToastDisplay />);
+            toast.info(<ToastMessage payload={payload} />);
         }
     });
 
