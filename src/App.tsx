@@ -6,11 +6,11 @@ import { FirebaseNotificationProvider } from "./FirebaseNotificationProvider";
 import { useEffect, useState } from "react";
 import { auth, getMessageToken, onMessageListener } from "./config/firebase";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useIdToken } from "react-firebase-hooks/auth";
 import { useAppDispatch } from "./state/hooks";
 import { setToken } from "./state/auth-slice";
 import { ToastMessage } from "./components/teast-message/toast-message";
+import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
     const [queryClient] = useState(() => new QueryClient());
