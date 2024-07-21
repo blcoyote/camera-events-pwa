@@ -3,9 +3,9 @@
   "short_name": "Camera Events",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#fff",
+  "background_color": "#d1d1d1",
   "description": "View camera events",
-  "theme_color": "#fff",
+  "theme_color": "#d1d1d1",
   "icons": [
     {
       "src": "pwa-64x64.png",
