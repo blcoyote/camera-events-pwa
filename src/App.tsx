@@ -18,6 +18,7 @@ export const App = () => {
     const store = createStore();
     const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
     const [user] = useIdToken(auth);
+
     user?.getIdToken().then((token) => {
         dispatch(setToken(token));
         sessionStorage.setItem("fbtoken", token);
@@ -29,7 +30,6 @@ export const App = () => {
 
     onMessageListener().then((payload) => {
         console.log("payload", payload);
-
         if (payload.notification?.title && payload.notification?.body) {
             toast.info(<ToastMessage payload={payload} />);
         }
