@@ -21,8 +21,6 @@ export const EventContainer = (props: EventContainerProps) => {
     const { event, isError, snapshotData } = props;
     const image = snapshotData && `data:image/jpeg;base64,${snapshotData}`;
 
-    const [user] = useIdToken(auth);
-
     if (isError) {
         return <div>Error...</div>;
     }

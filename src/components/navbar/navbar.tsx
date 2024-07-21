@@ -1,15 +1,10 @@
-import {
-    useSignInWithGoogle,
-    useSignOut,
-    useIdToken,
-} from "react-firebase-hooks/auth";
+import { useSignInWithGoogle, useIdToken } from "react-firebase-hooks/auth";
 import { Avatar } from "../avatar/avatar";
-import { NavbarMenu } from "./navbar-menu";
 import { auth } from "../../config/firebase";
+import { MenuDrawerButton } from "../menu-drawer/menu-drawer-button";
 
 export const Navbar = () => {
     const [signInWithGoogle] = useSignInWithGoogle(auth);
-    const [signOut] = useSignOut(auth);
     const [user, loading] = useIdToken(auth);
 
     const signIn = async () => {
@@ -20,7 +15,7 @@ export const Navbar = () => {
         <div className="sticky top-3 z-20">
             <div className="navbar bg-base-100 shadow-xl rounded-box">
                 <div className="navbar-start">
-                    {user && <NavbarMenu handleLogout={signOut} />}
+                    {user && <MenuDrawerButton />}
                 </div>
                 <div className="navbar-center">
                     <a href={"/"} className="btn btn-ghost text-xl">
