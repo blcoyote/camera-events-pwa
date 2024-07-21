@@ -17,7 +17,7 @@ export const MenuDrawer = ({ children }: { children: ReactNode }) => {
                 ></label>
                 <div
                     tabIndex={0}
-                    className="menu bg-base-100 text-base-content min-h-full w-80 gap-2 p-4 rounded-box"
+                    className="menu bg-base-100 text-base-content min-h-full w-80 gap-2 p-4"
                 >
                     <div className="grid grid-cols-1 justify-items-center gap-4">
                         <h2 className="text-lg font-bold">Camera Events</h2>
