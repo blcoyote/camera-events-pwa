@@ -32,7 +32,7 @@ messaging.onBackgroundMessage((payload) => {
 		data: { url: notificationUrl },
 	};
 	self.addEventListener("notificationclick", (event) => {
-		const data = event.notification.data;
+		//if data is needed: const data = event.notification.data;
 		event.notification.close();
 		self.clients.openWindow(notificationUrl);
 	});

@@ -4,17 +4,11 @@ import { motion } from "framer-motion";
 import dayjs from "dayjs";
 
 import { CameraNames } from "../../config/enum-camera-names";
-import { auth } from "../../config/firebase";
-import { useIdToken } from "react-firebase-hooks/auth";
 
 interface EventContainerProps {
     event?: CameraEvent;
-    isLoading: boolean;
     isError: boolean;
-    isSuccess: boolean;
     snapshotData?: string;
-    isSnapshotLoading: boolean;
-    refetch?: () => void;
 }
 
 export const EventContainer = (props: EventContainerProps) => {
