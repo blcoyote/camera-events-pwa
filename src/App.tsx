@@ -11,6 +11,7 @@ import { useAppDispatch } from "./state/hooks";
 import { setToken } from "./state/auth-slice";
 import { ToastMessage } from "./components/teast-message/toast-message";
 import "react-toastify/dist/ReactToastify.css";
+import { cameraApi } from "./services/camera-api";
 
 export const App = () => {
     const [queryClient] = useState(() => new QueryClient());
@@ -26,6 +27,14 @@ export const App = () => {
 
     useEffect(() => {
         getMessageToken(setFcmToken);
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+                cameraApi.util.invalidateTags(["CameraEvents"]);
+            }
+        });
     }, []);
 
     onMessageListener().then((payload) => {
