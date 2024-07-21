@@ -58,7 +58,7 @@ export const EventContainer = (props: EventContainerProps) => {
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/snapshot.jpg?token=${user?.getIdToken()}`}
+                            }/snapshot.jpg?token=${sessionStorage.getItem("fbtoken")}`}
                         >
                             <IconPhoto
                                 size={40}
@@ -76,7 +76,7 @@ export const EventContainer = (props: EventContainerProps) => {
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/clip.mp4?token=${user?.getIdToken()}`}
+                            }/clip.mp4?token=${sessionStorage.getItem("fbtoken")}`}
                         >
                             <IconMovie
                                 size={40}
