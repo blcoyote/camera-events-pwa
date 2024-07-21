@@ -1,5 +1,5 @@
 import { type FirebaseOptions, initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { GoogleAuthProvider,  getAuth } from "firebase/auth";
 import {
 	type MessagePayload,
 	getToken,
@@ -17,31 +17,29 @@ export const firebaseConfig: FirebaseOptions = {
 	measurementId: import.meta.env.VITE_measurementId,
 };
 
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+export const app = initializeApp(firebaseConfig, 'CameraEvents');
+
+export const auth= getAuth(app)
+
 export const googleProvider = new GoogleAuthProvider();
 
-//TODO: https://blog.logrocket.com/push-notifications-react-firebase/
 export const messaging = getMessaging(app);
 
-export const getMessageToken = (
+export const getMessageToken = async (
 	setTokenFound: React.Dispatch<React.SetStateAction<string | undefined>>,
 ) => {
-	return getToken(messaging, { vapidKey: import.meta.env.VITE_MESSAGINGKEY })
-		.then((currentToken) => {
-			if (currentToken) {
-                //console.log("current fcm token for client: ", currentToken);
-                setTokenFound(currentToken);
-            } else {
-				//console.log('No registration token available. Request permission to generate one.');
-				setTokenFound(undefined);
-				// shows on the UI that permission is required
-			}
-		})
-		.catch((err) => {
-			console.log("An error occurred while retrieving token. ", err);
-			// catch error while creating client token
-		});
+	try {
+		const currentToken = await getToken(messaging, { vapidKey: import.meta.env.VITE_MESSAGINGKEY });
+		if (currentToken) {
+			//"current fcm token for client: ", currentToken
+			setTokenFound(currentToken);
+		} else {
+			//'No registration token available. Request permission to generate one.'
+			setTokenFound(undefined);
+		}
+	} catch (err) {
+		console.log("An error occurred while retrieving token. ", err);
+	}
 };
 
 export const onMessageListener = (): Promise<MessagePayload> =>

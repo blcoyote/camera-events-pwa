@@ -2,24 +2,18 @@ import type { CameraEvent } from "../../models/camera-event.model";
 import { IconMovie, IconPhoto } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
-import { useAuthProvider } from "../../hooks/use-auth-provider";
+
 import { CameraNames } from "../../config/enum-camera-names";
 
 interface EventContainerProps {
     event?: CameraEvent;
-    isLoading: boolean;
     isError: boolean;
-    isSuccess: boolean;
     snapshotData?: string;
-    isSnapshotLoading: boolean;
-    refetch?: () => void;
 }
 
 export const EventContainer = (props: EventContainerProps) => {
     const { event, isError, snapshotData } = props;
     const image = snapshotData && `data:image/jpeg;base64,${snapshotData}`;
-    //const fallbackImage = "https://placehold.co/600x400?text=error";
-    const { token } = useAuthProvider();
 
     if (isError) {
         return <div>Error...</div>;
@@ -56,7 +50,7 @@ export const EventContainer = (props: EventContainerProps) => {
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/snapshot.jpg?token=${token}`}
+                            }/snapshot.jpg?token=${sessionStorage.getItem("fbtoken")}`}
                         >
                             <IconPhoto
                                 size={40}
@@ -74,7 +68,7 @@ export const EventContainer = (props: EventContainerProps) => {
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/clip.mp4?token=${token}`}
+                            }/clip.mp4?token=${sessionStorage.getItem("fbtoken")}`}
                         >
                             <IconMovie
                                 size={40}

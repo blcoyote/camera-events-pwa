@@ -1,11 +1,12 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { SyntheticEvent, useEffect, useState } from "react";
 import useSettings from "../hooks/use-settings";
-import { useAuthProvider } from "../hooks/use-auth-provider";
+
 import { useApi } from "../hooks/use-api.tsx";
 import { useMutation } from "@tanstack/react-query";
-import { getMessageToken } from "../config/firebase.ts";
+import { auth, getMessageToken } from "../config/firebase.ts";
 import { iOS } from "../lib/devices.ts";
+import { useIdToken } from "react-firebase-hooks/auth";
 
 export const Component = () => {
     const { eventLimit, setEventLimit } = useSettings();
@@ -13,7 +14,7 @@ export const Component = () => {
     const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
     const minValue = 0;
     const maxValue = 100;
-    const { token } = useAuthProvider();
+    const [user] = useIdToken(auth);
     const { api } = useApi();
 
     const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
@@ -26,14 +27,16 @@ export const Component = () => {
 
     const { mutate } = useMutation({
         mutationFn: () =>
-            api.get(`/v2/fcm?fcm_token=${fcmToken}&token=${token}`),
+            api.get(
+                `/v2/fcm?fcm_token=${fcmToken}&token=${user?.getIdToken()}`,
+            ),
     });
 
     useEffect(() => {
-        if (fcmToken && token) {
+        if (fcmToken && user?.getIdToken()) {
             mutate();
         }
-    }, [fcmToken, mutate, token]);
+    }, [fcmToken, mutate, user?.getIdToken()]);
 
     const handleMaxEventsChange = (event: SyntheticEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);

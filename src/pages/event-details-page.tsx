@@ -23,22 +23,12 @@ export const Component = () => {
         }
     };
 
-    // const {
-    //     data: eventData,
-    //     isSuccess,
-    //     loading: isLoading,
-    //     error: isError,
-    // } = useEventDetails(id);
+    const { data: eventData, isError } = useGetCameraEventDetailsQuery(
+        id ?? "",
+        { skip: !id },
+    );
 
-    const {
-        data: eventData,
-        isSuccess,
-        isLoading,
-        isError,
-    } = useGetCameraEventDetailsQuery(id ?? "", { skip: !id });
-
-    const { loading: snapshotLoading, data: snapshotData } =
-        useEventSnapshot(id);
+    const { data: snapshotData } = useEventSnapshot(id);
 
     return (
         <div className="flex content-center justify-center">
@@ -56,12 +46,8 @@ export const Component = () => {
                 {eventData && (
                     <EventContainer
                         event={eventData}
-                        isLoading={isLoading}
                         isError={isError}
-                        isSuccess={isSuccess}
-                        isSnapshotLoading={snapshotLoading}
                         snapshotData={snapshotData}
-                        refetch={() => {}}
                     />
                 )}
             </motion.div>

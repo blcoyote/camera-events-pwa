@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/navbar/navbar";
 import { UserGuard } from "../guards/user-guard";
+import { MenuDrawer } from "../components/menu-drawer/menu-drawer";
 
 export const Layout = () => {
     return (
@@ -8,7 +9,9 @@ export const Layout = () => {
             <Navbar />
             <div className="h-full flex overflow-y-auto flex-col flex-grow ">
                 <UserGuard>
-                    <Outlet />
+                    <MenuDrawer>
+                        <Outlet />
+                    </MenuDrawer>
                 </UserGuard>
             </div>
         </div>

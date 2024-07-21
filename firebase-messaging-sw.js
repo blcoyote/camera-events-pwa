@@ -1,8 +1,8 @@
 importScripts(
-    "https://www.gstatic.com/firebasejs/10.12.3/firebase-app-compat.js"
+    "https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"
 );
 importScripts(
-    "https://www.gstatic.com/firebasejs/10.12.3/firebase-messaging-compat.js"
+    "https://www.gstatic.com/firebasejs/10.12.4/firebase-messaging-compat.js"
 );
 
 // Initialize the Firebase app in the service worker by passing the generated config
@@ -23,7 +23,7 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-	const notificationTitle = "manual title"; //payload.notification.title;
+	const notificationTitle = payload.notification.title;
 
 	const notificationUrl = `INSERT_WEBURL_HERE${payload.data.path}/${payload.data.id}`;
 	const notificationOptions = {
@@ -32,7 +32,7 @@ messaging.onBackgroundMessage((payload) => {
 		data: { url: notificationUrl },
 	};
 	self.addEventListener("notificationclick", (event) => {
-		const data = event.notification.data;
+		//if data is needed: const data = event.notification.data;
 		event.notification.close();
 		self.clients.openWindow(notificationUrl);
 	});

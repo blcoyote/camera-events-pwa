@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { CameraEvent } from '../models/camera-event.model'
 
+const API_URL = import.meta.env.VITE_BaseURL
 
 export const cameraApi = createApi({
   reducerPath: 'cameraApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: '/api', 
-    
+    baseUrl: `${API_URL}/api`, 
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json;charset=UTF-8"')
       headers.set('Access-Control-Allow-Origin', '*')
       headers.set('Access-Control-Allow-Credentials', 'true')
-      headers.set('X-token', localStorage.getItem('token') ?? '')
+      headers.set('x-token', sessionStorage.getItem('fbtoken') ?? '')
       return headers
     }
   }),

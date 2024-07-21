@@ -1,14 +1,21 @@
-import { useAuthProvider } from "../../hooks/use-auth-provider";
+import { useSignInWithGoogle, useIdToken } from "react-firebase-hooks/auth";
 import { Avatar } from "../avatar/avatar";
-import { NavbarMenu } from "./navbar-menu";
+import { auth } from "../../config/firebase";
+import { MenuDrawerButton } from "../menu-drawer/menu-drawer-button";
 
 export const Navbar = () => {
-    const { user, signInWithGoogle, handleLogout } = useAuthProvider();
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
+    const [user, loading] = useIdToken(auth);
+
+    const signIn = async () => {
+        await signInWithGoogle();
+    };
+
     return (
         <div className="sticky top-3 z-20">
             <div className="navbar bg-base-100 shadow-xl rounded-box">
                 <div className="navbar-start">
-                    {user && <NavbarMenu handleLogout={handleLogout} />}
+                    {user && <MenuDrawerButton />}
                 </div>
                 <div className="navbar-center">
                     <a href={"/"} className="btn btn-ghost text-xl">
@@ -16,10 +23,10 @@ export const Navbar = () => {
                     </a>
                 </div>
                 <div className="navbar-end">
-                    {!user && (
+                    {!user && !loading && (
                         <button
                             className="btn btn-primary btn-sm"
-                            onClick={signInWithGoogle}
+                            onClick={signIn}
                         >
                             Login
                         </button>
