@@ -21,10 +21,17 @@ firebase.initializeApp(firebaseConfig);
 
 // Retrieve firebase messaging
 const messaging = firebase.messaging();
+const channel4Broadcast = new BroadcastChannel('channel4');
+let notificationsEnabled = false;
+
+channel4Broadcast.onmessage = (event) => {
+    notificationsEnabled = event.data.notifications;
+	console.log("event data", event.data);
+}
 
 messaging.onBackgroundMessage((payload) => {
 	const notificationTitle = payload.notification.title;
-
+	
 	const notificationUrl = `INSERT_WEBURL_HERE${payload.data.path}/${payload.data.id}`;
 	const notificationOptions = {
 		body: payload.notification.body,
@@ -36,7 +43,7 @@ messaging.onBackgroundMessage((payload) => {
 		event.notification.close();
 		self.clients.openWindow(notificationUrl);
 	});
-	if (localStorage.getItem("notification-enabled") === "true") {
+	if (notificationsEnabled) {
 		self.registration.showNotification(notificationTitle, notificationOptions);
 	}
 });

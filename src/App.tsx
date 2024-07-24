@@ -24,9 +24,11 @@ export const App = () => {
         dispatch(setToken(token));
         sessionStorage.setItem("fbtoken", token);
     });
+
     if (!localStorage.getItem("notifications-enabled")) {
         localStorage.setItem("notifications-enabled", "false");
     }
+
     useEffect(() => {
         getMessageToken(setFcmToken);
     }, []);

@@ -5,27 +5,19 @@ import { useApi } from "../hooks/use-api.tsx";
 import { useMutation } from "@tanstack/react-query";
 import { getMessageToken } from "../config/firebase.ts";
 import { iOS } from "../lib/devices.ts";
+import { useNotifications } from "../hooks/use-notifications.tsx";
 
 export const Component = () => {
     const { eventLimit, setEventLimit } = useSettings();
     const [value, setValue] = useState(eventLimit);
     const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
-    const [notificationButtonTitle, setNotificationButtonTitle] =
-        useState<string>("Enable");
     const minValue = 0;
     const maxValue = 100;
     const { api } = useApi();
+    const { notificationsEnabled, enableNotifications } = useNotifications();
 
     const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
     const showNotifications = isInstalled || !iOS();
-
-    useEffect(() => {
-        setNotificationButtonTitle(
-            localStorage.getItem("notifications-enabled") === "true"
-                ? "Enabled"
-                : "Enable",
-        );
-    }, []);
 
     const { mutate } = useMutation({
         mutationFn: () =>
@@ -49,18 +41,12 @@ export const Component = () => {
     }, [value]);
 
     const toggleNotifications = () => {
-        const notificationsEnabled = localStorage.getItem(
-            "notifications-enabled",
-        );
-
-        if (notificationsEnabled === "true") {
-            localStorage.setItem("notifications-enabled", "false");
-            setNotificationButtonTitle("Enable");
+        if (notificationsEnabled) {
+            enableNotifications(false);
         } else {
             Notification.requestPermission().then((permission) => {
                 if (permission === "granted") {
-                    localStorage.setItem("notifications-enabled", "true");
-                    setNotificationButtonTitle("Enabled");
+                    enableNotifications(true);
                     getMessageToken(setFcmToken);
                 }
             });
@@ -97,7 +83,7 @@ export const Component = () => {
                             className="btn btn-primary"
                             onClick={toggleNotifications}
                         >
-                            {notificationButtonTitle}
+                            {notificationsEnabled ? "Disable" : "Enable"}
                         </button>
                     </div>
                 )}
