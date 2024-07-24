@@ -1,43 +1,44 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { SyntheticEvent, useEffect, useState } from "react";
 import useSettings from "../hooks/use-settings";
-
 import { useApi } from "../hooks/use-api.tsx";
 import { useMutation } from "@tanstack/react-query";
-import { auth, getMessageToken } from "../config/firebase.ts";
+import { getMessageToken } from "../config/firebase.ts";
 import { iOS } from "../lib/devices.ts";
-import { useIdToken } from "react-firebase-hooks/auth";
 
 export const Component = () => {
     const { eventLimit, setEventLimit } = useSettings();
     const [value, setValue] = useState(eventLimit);
     const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
+    const [notificationButtonTitle, setNotificationButtonTitle] =
+        useState<string>("Enable");
     const minValue = 0;
     const maxValue = 100;
-    const [user] = useIdToken(auth);
     const { api } = useApi();
 
     const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
     const showNotifications = isInstalled || !iOS();
 
-    const notificationButtonTitle =
-        showNotifications &&
-        localStorage.getItem("notifications-enabled") === "true"
-            ? "Enabled"
-            : "Enable";
+    useEffect(() => {
+        setNotificationButtonTitle(
+            localStorage.getItem("notifications-enabled") === "true"
+                ? "Enabled"
+                : "Enable",
+        );
+    }, []);
 
     const { mutate } = useMutation({
         mutationFn: () =>
             api.get(
-                `/v2/fcm?fcm_token=${fcmToken}&token=${user?.getIdToken()}`,
+                `/v2/fcm?fcm_token=${fcmToken}&token=${sessionStorage.getItem("fbtoken")}`,
             ),
     });
 
     useEffect(() => {
-        if (fcmToken && user?.getIdToken()) {
+        if (fcmToken) {
             mutate();
         }
-    }, [fcmToken, mutate, user?.getIdToken()]);
+    }, [fcmToken, mutate]);
 
     const handleMaxEventsChange = (event: SyntheticEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);
@@ -45,19 +46,21 @@ export const Component = () => {
 
     useEffect(() => {
         setEventLimit(value);
-        console.log(value);
     }, [value]);
 
     const toggleNotifications = () => {
         const notificationsEnabled = localStorage.getItem(
             "notifications-enabled",
         );
+
         if (notificationsEnabled === "true") {
             localStorage.setItem("notifications-enabled", "false");
+            setNotificationButtonTitle("Enable");
         } else {
             Notification.requestPermission().then((permission) => {
                 if (permission === "granted") {
                     localStorage.setItem("notifications-enabled", "true");
+                    setNotificationButtonTitle("Enabled");
                     getMessageToken(setFcmToken);
                 }
             });
