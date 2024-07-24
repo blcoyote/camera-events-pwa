@@ -21,7 +21,8 @@ export const Component = () => {
     const showNotifications = isInstalled || !iOS();
 
     const notificationButtonTitle =
-        showNotifications && Notification.permission === "granted"
+        showNotifications &&
+        localStorage.getItem("notifications-enabled") === "true"
             ? "Enabled"
             : "Enable";
 
@@ -48,11 +49,19 @@ export const Component = () => {
     }, [value]);
 
     const toggleNotifications = () => {
-        Notification.requestPermission().then((permission) => {
-            if (permission === "granted") {
-                getMessageToken(setFcmToken);
-            }
-        });
+        const notificationsEnabled = localStorage.getItem(
+            "notifications-enabled",
+        );
+        if (notificationsEnabled === "true") {
+            localStorage.setItem("notifications-enabled", "false");
+        } else {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    localStorage.setItem("notifications-enabled", "true");
+                    getMessageToken(setFcmToken);
+                }
+            });
+        }
     };
 
     return (

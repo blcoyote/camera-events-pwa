@@ -26,6 +26,9 @@ export const App = () => {
     });
 
     useEffect(() => {
+        if (!localStorage.getItem("notifications-enabled")) {
+            localStorage.setItem("notifications-enabled", "false");
+        }
         getMessageToken(setFcmToken);
     }, []);
 
@@ -39,7 +42,11 @@ export const App = () => {
 
     onMessageListener().then((payload) => {
         console.log("payload", payload);
-        if (payload.notification?.title && payload.notification?.body) {
+        if (
+            payload.notification?.title &&
+            payload.notification?.body &&
+            localStorage.getItem("notification-enabled") === "true"
+        ) {
             toast.info(<ToastMessage payload={payload} />);
         }
     });

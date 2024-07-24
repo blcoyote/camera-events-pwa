@@ -36,5 +36,7 @@ messaging.onBackgroundMessage((payload) => {
 		event.notification.close();
 		self.clients.openWindow(notificationUrl);
 	});
+	if (localStorage.getItem("notification-enabled") === "true") {
 	self.registration.showNotification(notificationTitle, notificationOptions);
+	}
 });
