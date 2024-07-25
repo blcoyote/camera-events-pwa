@@ -9,10 +9,24 @@ export const useNotifications = () => {
             "notifications-enabled",
         );
         if (notificationsEnabled === "true") {
-            setNotificationsEnabled(true);
-            channel4Broadcast.postMessage({ notifications: true });
+            enableNotifications(true);
         }
     }, []);
+
+    const loadNotificationSettings = () => {
+        const notificationsEnabled = localStorage.getItem(
+            "notifications-enabled",
+        );
+
+        if (notificationsEnabled === null) {
+            enableNotifications(false);
+            return;
+        }
+
+        if (notificationsEnabled === "true") {
+            enableNotifications(true);
+        }
+    };
 
     const enableNotifications = (enable: boolean) => {
         setNotificationsEnabled(enable);
@@ -25,6 +39,10 @@ export const useNotifications = () => {
         }
     };
 
-    return { notificationsEnabled, enableNotifications };
+    return {
+        notificationsEnabled,
+        enableNotifications,
+        loadNotificationSettings,
+    };
 };
 

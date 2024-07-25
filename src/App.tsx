@@ -12,6 +12,7 @@ import { setToken } from "./state/auth-slice";
 import { ToastMessage } from "./components/teast-message/toast-message";
 import "react-toastify/dist/ReactToastify.css";
 import { cameraApi } from "./services/camera-api";
+import { useNotifications } from "./hooks/use-notifications";
 
 export const App = () => {
     const [queryClient] = useState(() => new QueryClient());
@@ -19,17 +20,15 @@ export const App = () => {
     const store = createStore();
     const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
     const [user] = useIdToken(auth);
+    const { loadNotificationSettings } = useNotifications();
 
     user?.getIdToken().then((token) => {
         dispatch(setToken(token));
         sessionStorage.setItem("fbtoken", token);
     });
 
-    if (!localStorage.getItem("notifications-enabled")) {
-        localStorage.setItem("notifications-enabled", "false");
-    }
-
     useEffect(() => {
+        loadNotificationSettings();
         getMessageToken(setFcmToken);
     }, []);
 
