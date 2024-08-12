@@ -48,9 +48,7 @@ export const CardLoader = () => {
             <figure>
                 <img src={image} alt="Thumbnail" className="w-44 h-44" />
             </figure>
-            <div className="absolute right-5 top-5 badge badge-accent">
-                Loading
-            </div>
+            <div className="absolute right-5 top-5 badge badge-accent"></div>
             <div className="card-body pt-4 gap-3">
                 <h2 className="card-title">
                     <div className="skeleton h-7 w-4/6"></div>
