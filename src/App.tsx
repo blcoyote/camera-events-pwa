@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useIdToken } from "react-firebase-hooks/auth";
 import { useAppDispatch } from "./state/hooks";
 import { setToken } from "./state/auth-slice";
-import { ToastMessage } from "./components/teast-message/toast-message";
+import { ToastMessage } from "./components/toast-message/toast-message";
 import "react-toastify/dist/ReactToastify.css";
 import { cameraApi } from "./services/camera-api";
 import { useNotifications } from "./hooks/use-notifications";
