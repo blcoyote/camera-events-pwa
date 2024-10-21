@@ -7,6 +7,7 @@ export const cameraApi = createApi({
   reducerPath: 'cameraApi',
   baseQuery: fetchBaseQuery({ 
     baseUrl: `${API_URL}/api`, 
+    
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json;charset=UTF-8"')
       headers.set('Access-Control-Allow-Origin', '*')
@@ -14,19 +15,24 @@ export const cameraApi = createApi({
       headers.set('x-token', sessionStorage.getItem('fbtoken') ?? '')
       return headers
     }
+    
   }),
+  tagTypes: ['CameraEvents'],
   endpoints: (builder) => ({
     getCameraEvents: builder.query<CameraEvent[], number>({
        query: (queryArg) => ({ 
         method: 'GET',
         url: `/v2/events/`, 
         params: { limit: queryArg }} ),
+        providesTags: ['CameraEvents']
     }),
     getCameraEventDetails: builder.query<CameraEvent, string>({
       query: (id) => ({ method: 'GET', url:`/v2/events/${id}`}),
-      
+      providesTags:['CameraEvents'],
     }),
+    
   }),
+  
 })
 
 

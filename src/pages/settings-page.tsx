@@ -1,12 +1,11 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import { SyntheticEvent, useEffect, useState } from "react";
 import useSettings from "../hooks/use-settings";
-
 import { useApi } from "../hooks/use-api.tsx";
 import { useMutation } from "@tanstack/react-query";
-import { auth, getMessageToken } from "../config/firebase.ts";
+import { getMessageToken } from "../config/firebase.ts";
 import { iOS } from "../lib/devices.ts";
-import { useIdToken } from "react-firebase-hooks/auth";
+import { useNotifications } from "../hooks/use-notifications.tsx";
 
 export const Component = () => {
     const { eventLimit, setEventLimit } = useSettings();
@@ -14,29 +13,24 @@ export const Component = () => {
     const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
     const minValue = 0;
     const maxValue = 100;
-    const [user] = useIdToken(auth);
     const { api } = useApi();
+    const { notificationsEnabled, enableNotifications } = useNotifications();
 
     const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
     const showNotifications = isInstalled || !iOS();
 
-    const notificationButtonTitle =
-        showNotifications && Notification.permission === "granted"
-            ? "Enabled"
-            : "Enable";
-
     const { mutate } = useMutation({
         mutationFn: () =>
             api.get(
-                `/v2/fcm?fcm_token=${fcmToken}&token=${user?.getIdToken()}`,
+                `/v2/fcm?fcm_token=${fcmToken}&token=${sessionStorage.getItem("fbtoken")}`,
             ),
     });
 
     useEffect(() => {
-        if (fcmToken && user?.getIdToken()) {
+        if (fcmToken) {
             mutate();
         }
-    }, [fcmToken, mutate, user?.getIdToken()]);
+    }, [fcmToken, mutate]);
 
     const handleMaxEventsChange = (event: SyntheticEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);
@@ -44,15 +38,19 @@ export const Component = () => {
 
     useEffect(() => {
         setEventLimit(value);
-        console.log(value);
     }, [value]);
 
     const toggleNotifications = () => {
-        Notification.requestPermission().then((permission) => {
-            if (permission === "granted") {
-                getMessageToken(setFcmToken);
-            }
-        });
+        if (notificationsEnabled) {
+            enableNotifications(false);
+        } else {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    enableNotifications(true);
+                    getMessageToken(setFcmToken);
+                }
+            });
+        }
     };
 
     return (
@@ -85,7 +83,7 @@ export const Component = () => {
                             className="btn btn-primary"
                             onClick={toggleNotifications}
                         >
-                            {notificationButtonTitle}
+                            {notificationsEnabled ? "Disable" : "Enable"}
                         </button>
                     </div>
                 )}
