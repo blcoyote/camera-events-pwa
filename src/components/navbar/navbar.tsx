@@ -12,7 +12,7 @@ export const Navbar = () => {
     };
 
     return (
-        <div className="sticky top-3 z-20">
+        <div className="sticky top-3 z-10">
             <div className="navbar bg-base-100 shadow-xl rounded-box">
                 <div className="navbar-start">
                     {user && <MenuDrawerButton />}

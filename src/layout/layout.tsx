@@ -7,7 +7,7 @@ export const Layout = () => {
     return (
         <div className="flex flex-col p-2 min-h-dvh bg-base-300 ">
             <Navbar />
-            <div className="h-full flex overflow-y-auto flex-col flex-grow ">
+            <div className="h-full flex overflow-y-auto flex-col flex-grow z-10">
                 <UserGuard>
                     <MenuDrawer>
                         <Outlet />
