@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
 import {
@@ -7,12 +6,12 @@ import {
     HiArrowTopRightOnSquare,
 } from "react-icons/hi2";
 
-export const MenuDrawer = ({ children }: { children: ReactNode }) => {
+export const MenuDrawer = () => {
     const [signOut] = useSignOut(auth);
     return (
         <div className="drawer z-20">
             <input id="menu-drawer" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content">{children}</div>
+
             <div className="drawer-side">
                 <label
                     htmlFor="menu-drawer"
