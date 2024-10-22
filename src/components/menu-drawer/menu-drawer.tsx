@@ -10,7 +10,7 @@ import {
 export const MenuDrawer = ({ children }: { children: ReactNode }) => {
     const [signOut] = useSignOut(auth);
     return (
-        <div className="drawer z-50">
+        <div className="drawer z-20">
             <input id="menu-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">{children}</div>
             <div className="drawer-side">

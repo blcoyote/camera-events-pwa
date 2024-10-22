@@ -20,7 +20,8 @@ export const App = () => {
     const store = createStore();
     const [fcmToken, setFcmToken] = useState<string | undefined>(undefined);
     const [user] = useIdToken(auth);
-    const { loadNotificationSettings } = useNotifications();
+    const { loadNotificationSettings, notificationsEnabled } =
+        useNotifications();
 
     user?.getIdToken().then((token) => {
         dispatch(setToken(token));
@@ -29,8 +30,10 @@ export const App = () => {
 
     useEffect(() => {
         loadNotificationSettings();
-        getMessageToken(setFcmToken);
-    }, []);
+        if (notificationsEnabled) {
+            getMessageToken(setFcmToken);
+        }
+    }, [notificationsEnabled]);
 
     useEffect(() => {
         document.addEventListener("visibilitychange", () => {

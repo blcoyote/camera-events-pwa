@@ -6,12 +6,13 @@ import { MenuDrawer } from "../components/menu-drawer/menu-drawer";
 export const Layout = () => {
     return (
         <div className="flex flex-col p-2 min-h-dvh bg-base-300 ">
-            <Navbar />
-            <div className="h-full flex overflow-y-auto flex-col flex-grow z-10">
+            <div className="sticky top-3 z-20">
+                <Navbar />
+            </div>
+            <MenuDrawer />
+            <div className="h-full flex overflow-y-auto flex-col flex-grow">
                 <UserGuard>
-                    <MenuDrawer>
-                        <Outlet />
-                    </MenuDrawer>
+                    <div className="drawer-content">{<Outlet />}</div>
                 </UserGuard>
             </div>
         </div>
