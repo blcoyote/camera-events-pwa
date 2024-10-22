@@ -1,7 +1,11 @@
 import { ReactNode } from "react";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
-import { IconSettings, IconCalendar, IconLogout } from "@tabler/icons-react";
+import {
+    HiAdjustmentsHorizontal,
+    HiCalendarDays,
+    HiArrowTopRightOnSquare,
+} from "react-icons/hi2";
 
 export const MenuDrawer = ({ children }: { children: ReactNode }) => {
     const [signOut] = useSignOut(auth);
@@ -33,7 +37,7 @@ export const MenuDrawer = ({ children }: { children: ReactNode }) => {
                             href="/events"
                             className="btn btn-ghost lex flex-row justify-between"
                         >
-                            <IconCalendar size={24} />
+                            <HiCalendarDays size={24} />
                             <p className="w-24 flex justify-start">Events</p>
                         </a>
 
@@ -41,7 +45,7 @@ export const MenuDrawer = ({ children }: { children: ReactNode }) => {
                             href="/settings"
                             className="btn btn-ghost flex flex-row justify-between"
                         >
-                            <IconSettings size={24} />
+                            <HiAdjustmentsHorizontal size={24} />
                             <p className="w-24 flex justify-start">Settings</p>
                         </a>
                     </div>
@@ -51,7 +55,7 @@ export const MenuDrawer = ({ children }: { children: ReactNode }) => {
                             className="btn btn-ghost flex flex-row justify-between"
                             onClick={signOut}
                         >
-                            <IconLogout size={24} />
+                            <HiArrowTopRightOnSquare size={24} />
                             <p className="w-24 flex justify-start">Logout</p>
                         </button>
                     </li>

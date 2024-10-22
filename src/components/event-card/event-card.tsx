@@ -1,8 +1,7 @@
 import type { CameraEvent } from "../../models/camera-event.model";
-import { IconMovie, IconPhoto } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
-
+import { HiFilm, HiPhoto } from "react-icons/hi2";
 import { CameraNames } from "../../config/enum-camera-names";
 
 interface EventContainerProps {
@@ -57,8 +56,8 @@ export const EventContainer = (props: EventContainerProps) => {
                                 "fbtoken"
                             )}`}
                         >
-                            <IconPhoto
-                                size={40}
+                            <HiPhoto
+                                size={32}
                                 className="cursor-pointer text-secondary"
                             />
                         </a>
@@ -67,7 +66,7 @@ export const EventContainer = (props: EventContainerProps) => {
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
-                        title="Download Clip"
+                        title=""
                     >
                         <a
                             href={`${
@@ -78,8 +77,8 @@ export const EventContainer = (props: EventContainerProps) => {
                                 "fbtoken"
                             )}`}
                         >
-                            <IconMovie
-                                size={40}
+                            <HiFilm
+                                size={32}
                                 className="cursor-pointer text-secondary"
                             />
                         </a>
