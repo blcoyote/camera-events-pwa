@@ -1,8 +1,7 @@
 import type { CameraEvent } from "../../models/camera-event.model";
-import { IconMovie, IconPhoto } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
-
+import { HiFilm, HiPhoto } from "react-icons/hi2";
 import { CameraNames } from "../../config/enum-camera-names";
 
 interface EventContainerProps {
@@ -25,7 +24,7 @@ export const EventContainer = (props: EventContainerProps) => {
                 <img src={image} alt="survellance" className="rounded-t-box" />
             </figure>
             <div className="card-body relative">
-                <div className="badge badge-accent absolute top-2 right-2">
+                <div className="badge badge-secondary absolute top-2 right-2">
                     {CameraNames[event?.camera as keyof typeof CameraNames] ??
                         "Unknown"}
                 </div>
@@ -36,46 +35,54 @@ export const EventContainer = (props: EventContainerProps) => {
                             .format("DD MMM. YYYY HH:mm:ss")}
                 </h2>
                 <p>{`Label: ${event?.label}`}</p>
-                <p>{`Probability: ${event && (event?.data.score * 100).toFixed(2)}%`}</p>
+                <p>{`Probability: ${
+                    event && (event?.data.score * 100).toFixed(2)
+                }%`}</p>
                 <p>{`EventId: ${event?.id}`}</p>
                 <div className="divider" />
                 <div className="flex justify-evenly ">
-                    <motion.div
+                    <motion.button
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
+                        title="Download Snapshot"
                     >
                         <a
                             href={`${
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/snapshot.jpg?token=${sessionStorage.getItem("fbtoken")}`}
+                            }/snapshot.jpg?token=${sessionStorage.getItem(
+                                "fbtoken"
+                            )}`}
                         >
-                            <IconPhoto
-                                size={40}
+                            <HiPhoto
+                                size={32}
                                 className="cursor-pointer text-secondary"
                             />
                         </a>
-                    </motion.div>
-                    <motion.div
+                    </motion.button>
+                    <motion.button
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
+                        title=""
                     >
                         <a
                             href={`${
                                 import.meta.env.VITE_BaseURL
                             }/api/v2/downloads/${
                                 event?.id
-                            }/clip.mp4?token=${sessionStorage.getItem("fbtoken")}`}
+                            }/clip.mp4?token=${sessionStorage.getItem(
+                                "fbtoken"
+                            )}`}
                         >
-                            <IconMovie
-                                size={40}
+                            <HiFilm
+                                size={32}
                                 className="cursor-pointer text-secondary"
                             />
                         </a>
-                    </motion.div>
+                    </motion.button>
                 </div>
             </div>
         </div>

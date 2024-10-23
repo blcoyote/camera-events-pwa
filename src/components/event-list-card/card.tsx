@@ -25,7 +25,7 @@ export const Card = (props: CameraEvent) => {
             <figure>
                 <img src={image} alt="Thumbnail" className="h-fit scale-150" />
             </figure>
-            <div className="absolute right-2 top-2 badge badge-accent">
+            <div className="absolute right-2 top-2 badge badge-outline">
                 {CameraNames[props.camera as keyof typeof CameraNames] ??
                     "Unknown"}
             </div>

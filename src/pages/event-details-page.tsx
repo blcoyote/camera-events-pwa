@@ -4,11 +4,11 @@ import {
     useRouteError,
     useNavigate,
 } from "react-router-dom";
-import { IconArrowBackUp } from "@tabler/icons-react";
 import { useEventSnapshot } from "../hooks/use-event";
 import { EventContainer } from "../components/event-card/event-card";
 import { motion } from "framer-motion";
 import { useGetCameraEventDetailsQuery } from "../services/camera-api";
+import { HiArrowLeft } from "react-icons/hi2";
 
 export const Component = () => {
     const { id } = useParams();
@@ -25,7 +25,7 @@ export const Component = () => {
 
     const { data: eventData, isError } = useGetCameraEventDetailsQuery(
         id ?? "",
-        { skip: !id },
+        { skip: !id }
     );
 
     const { data: snapshotData } = useEventSnapshot(id);
@@ -38,10 +38,10 @@ export const Component = () => {
                 transition={{ duration: 0.5 }}
             >
                 <button
-                    className="btn btn-circle relative top-12"
+                    className="btn btn-sm btn-circle relative top-10 left-2"
                     onClick={navigateToEventsPage}
                 >
-                    <IconArrowBackUp className="text-secondary" />
+                    <HiArrowLeft className="text-secondary" />
                 </button>
                 {eventData && (
                     <EventContainer
